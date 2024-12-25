@@ -8,32 +8,31 @@ import java.util.Map;
 
 public class ConfigurationManager {
 
-    private final Map<JavaPlugin, Map<String, Config>> configurations = new HashMap<>();
+    private final Map<String, Config> configs = new HashMap<>();
 
-    public void initialize(JavaPlugin plugin, String... names) {
-        configurations.putIfAbsent(plugin, new HashMap<>());
-
+    public ConfigurationManager(JavaPlugin plugin, String... names) {
         Arrays.stream(names).sequential().forEach(file -> {
-            if (!configurations.get(plugin).containsKey(file))
-                configurations.get(plugin).put(file, new Config(plugin, file));
+            if (!configs.containsKey(file)) {
+                configs.put(file, new Config(plugin, file));
+            }
         });
     }
 
-    public Config getConfig(JavaPlugin plugin, String name) {
-        return (configurations.get(plugin) != null) ?
-                configurations.get(plugin).get(name) :
-                null;
+    public Config getConfig(String name) {
+        return configs.get(name);
     }
 
-    public void reload(JavaPlugin plugin, String name) {
-        Config config = getConfig(plugin, name);
-        if (config != null)
+    public void reload(String name) {
+        Config config = getConfig(name);
+        if (config != null) {
             config.reload();
+        }
     }
 
-    public void save(JavaPlugin plugin, String name) {
-        Config config = getConfig(plugin, name);
-        if (config != null)
+    public void save(String name) {
+        Config config = getConfig(name);
+        if (config != null) {
             config.save();
+        }
     }
 }
