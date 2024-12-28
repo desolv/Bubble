@@ -37,14 +37,13 @@ public class RedisManager {
         return null;
     }
 
-    public String set(String key, String content) {
+    public void set(String key, String content) {
         try (Jedis jedis = jedisPool.getResource()) {
-            return jedis.set(key, content);
+            jedis.set(key, content);
         } catch (Exception e) {
             Commons.getInstance().getLogger().warning("An error occurred while setting " + key + ".");
             e.printStackTrace();
         }
-        return null;
     }
 
     public void set(String key, String content, long expire) {
