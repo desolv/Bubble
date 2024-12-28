@@ -10,16 +10,14 @@ public class RedisManager {
 
     private JedisPool jedisPool;
 
-    public RedisManager() {
+    public RedisManager(String url) {
         try {
             JedisPoolConfig poolConfig = new JedisPoolConfig();
             poolConfig.setMaxTotal(30);
             poolConfig.setMaxIdle(15);
             poolConfig.setBlockWhenExhausted(true);
 
-            jedisPool = new JedisPool(
-                    poolConfig,
-                    Commons.getInstance().getConfig("storage.yml").getString("redis.url"));
+            jedisPool = new JedisPool(poolConfig, url);
 
             String timing = String.valueOf(System.currentTimeMillis() - Commons.getInstance().getInstanceManager().getInstance().getBooting());
             Commons.getInstance().getLogger().info("Merged Redis @ " + timing + "ms.");
@@ -86,5 +84,9 @@ public class RedisManager {
                 e.printStackTrace();
             }
         }).start();
+    }
+
+    public void close() {
+        jedisPool.getResource().close();
     }
 }
