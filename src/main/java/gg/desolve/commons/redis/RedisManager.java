@@ -17,9 +17,12 @@ public class RedisManager {
             poolConfig.setMaxIdle(15);
             poolConfig.setBlockWhenExhausted(true);
 
-            jedisPool = new JedisPool(Commons.getInstance().getConfig("storage.yml").getString("redis.url"));
+            jedisPool = new JedisPool(
+                    poolConfig,
+                    Commons.getInstance().getConfig("storage.yml").getString("redis.url"));
 
-            Commons.getInstance().getLogger().info("Merged Redis @ ms.");
+            String timing = String.valueOf(System.currentTimeMillis() - Commons.getInstance().getInstanceManager().getInstance().getBooting());
+            Commons.getInstance().getLogger().info("Merged Redis @ " + timing + "ms.");
         } catch (Exception e) {
             Commons.getInstance().getLogger().warning("There was a problem connecting to Redis.");
             e.printStackTrace();
