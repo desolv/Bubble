@@ -1,3 +1,3 @@
 server_management:
   server-name: "Commons"
-  common-prefix: "<aqua><bold>desolve-commons <gray>» "
+  plugin-prefix: "<aqua><bold>desolve-commons <gray>» "

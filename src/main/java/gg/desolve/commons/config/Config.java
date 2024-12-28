@@ -17,7 +17,6 @@ public class Config {
     public Config(JavaPlugin plugin, String name) {
         this.file = new File(plugin.getDataFolder(), name);
 
-        // Ensure the configuration file exists
         if (!file.exists()) {
             file.getParentFile().mkdirs();
             plugin.saveResource(name, false);
@@ -25,7 +24,6 @@ public class Config {
 
         config = YamlConfiguration.loadConfiguration(file);
     }
-
 
     public void reload() {
         try {
@@ -48,27 +46,15 @@ public class Config {
     }
 
     public String getString(String path) {
-        return getString(path, "Unknown");
-    }
-
-    public String getString(String path, String def) {
-        return config.getString(path, def);
+        return config.getString(path, "Not possible retrieving message");
     }
 
     public int getInt(String path) {
-        return getInt(path, 0);
-    }
-
-    public int getInt(String path, int def) {
-        return config.getInt(path, def);
+        return config.getInt(path, 0);
     }
 
     public boolean getBoolean(String path) {
-        return getBoolean(path, false);
-    }
-
-    public boolean getBoolean(String path, boolean def) {
-        return config.getBoolean(path, def);
+        return config.getBoolean(path, false);
     }
 
 }
