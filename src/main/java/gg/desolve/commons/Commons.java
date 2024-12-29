@@ -28,11 +28,14 @@ public final class Commons extends JavaPlugin {
         configurationManager = new ConfigurationManager(this, "language.yml", "storage.yml");
         instanceManager = new InstanceManager();
         redisManager = new RedisManager(getConfig("storage.yml").getString("redis.url"));
+        instanceManager.create(instanceManager.getInstance());
+
     }
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        instanceManager.remove(instanceManager.getInstance());
+        redisManager.close();
     }
 
     public Config getConfig(String name) {
