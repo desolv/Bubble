@@ -12,10 +12,9 @@ import org.bson.UuidRepresentation;
 @Getter
 public class MongoManager {
 
-    private MongoDatabase mongoDatabase;
     private MongoClient mongoClient;
 
-    public MongoManager(String url, String database) {
+    public MongoManager(String url) {
         try {
             MongoClientSettings mongoSettings = MongoClientSettings.builder()
                     .applyConnectionString(new ConnectionString(url))
@@ -23,7 +22,6 @@ public class MongoManager {
                     .build();
 
             mongoClient = MongoClients.create(mongoSettings);
-            mongoDatabase = mongoClient.getDatabase(database);
 
             String timing = String.valueOf(System.currentTimeMillis() - Commons.getInstance().getInstanceManager().getInstance().getBooting());
             Commons.getInstance().getLogger().info("Merged Mongo @ " + timing + "ms.");
