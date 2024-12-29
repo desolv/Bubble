@@ -11,5 +11,8 @@ public class Converter {
         return randomId.substring(0, Math.min(12, randomId.length()));
     }
 
+    public static long seconds(long millis) {
+        return millis / 1000;
+    }
 
 }
