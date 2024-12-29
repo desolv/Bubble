@@ -1,5 +1,6 @@
 package gg.desolve.commons;
 
+import gg.desolve.commons.command.CommandManager;
 import gg.desolve.commons.config.Config;
 import gg.desolve.commons.config.ConfigurationManager;
 import gg.desolve.commons.instance.InstanceManager;
@@ -21,6 +22,9 @@ public final class Commons extends JavaPlugin {
     @Getter
     public InstanceManager instanceManager;
 
+    @Getter
+    public CommandManager commandManager;
+
     @Override
     public void onEnable() {
         instance = this;
@@ -29,7 +33,7 @@ public final class Commons extends JavaPlugin {
         instanceManager = new InstanceManager();
         redisManager = new RedisManager(getConfig("storage.yml").getString("redis.url"));
         instanceManager.create(instanceManager.getInstance());
-
+        commandManager = new CommandManager(this, "commons.*");
     }
 
     @Override
