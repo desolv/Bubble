@@ -1,4 +1,4 @@
 name: Commons
-version: '1.0'
+version: '1.1'
 main: gg.desolve.commons.Commons
 api-version: '1.13'
