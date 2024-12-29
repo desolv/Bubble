@@ -6,6 +6,9 @@ import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.JedisPubSub;
 
+import java.util.*;
+import java.util.stream.Collectors;
+
 public class RedisManager {
 
     private JedisPool jedisPool;
@@ -35,6 +38,19 @@ public class RedisManager {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public Collection<String> keys(String key) {
+        try (Jedis jedis = jedisPool.getResource()) {
+            return jedis.keys(key).stream()
+                    .map(jedis::get)
+                    .filter(Objects::nonNull)
+                    .collect(Collectors.toList());
+        } catch (Exception e) {
+            Commons.getInstance().getLogger().warning("An error occurred while retrieving keys " + key + ".");
+            e.printStackTrace();
+        }
+        return new ArrayList<>();
     }
 
     public void set(String key, String content) {
@@ -83,6 +99,16 @@ public class RedisManager {
                 e.printStackTrace();
             }
         }).start();
+    }
+
+    public void flush() {
+        try (Jedis jedis = jedisPool.getResource()) {
+            jedis.flushAll();
+            Commons.getInstance().getLogger().info("Redis data has been flushed.");
+        } catch (Exception e) {
+            Commons.getInstance().getLogger().warning("An error occurred while flushing Redis data.");
+            e.printStackTrace();
+        }
     }
 
     public void close() {
