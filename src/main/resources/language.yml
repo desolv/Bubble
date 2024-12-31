@@ -3,6 +3,10 @@ server-management:
   server_display: "Desolve"
   plugin_prefix: "<aqua><bold>desolve-commons <gray>»</bold><white> "
 
+instance-management:
+  instance_create: "prefix% <green>A new instance @server% <dark_gray>id% <green>has been initialised."
+  instance_remove: "prefix% <red>The instance @server% <dark_gray>id% <red>has been removed."
+
 acf-core:
   permission_denied:  "&cYou are missing required permissions."
   permission_denied_parameter: "&cYou are missing required permissions."
