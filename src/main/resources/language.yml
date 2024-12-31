@@ -1,4 +1,4 @@
 server_management:
   server-name: "desolve"
   server-display: "Desolve"
-  plugin-prefix: "<aqua><bold>desolve-commons <gray>» "
+  plugin-prefix: "<aqua><bold>desolve-commons <gray>»</bold><white> "
