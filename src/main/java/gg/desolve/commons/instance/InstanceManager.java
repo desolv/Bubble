@@ -18,7 +18,7 @@ public class InstanceManager {
     public InstanceManager() {
         instance = new Instance(
                 Converter.generateId(),
-                Commons.getInstance().getConfig("language.yml").getString("server_management.server-name"),
+                Commons.getInstance().getConfig("language.yml").getString("server-management.server_name"),
                 Commons.getInstance().getServer().getVersion(),
                 0,
                 System.currentTimeMillis(),

@@ -1,5 +1,6 @@
 package gg.desolve.commons;
 
+import gg.desolve.commons.command.CommandDirector;
 import gg.desolve.commons.command.CommandManager;
 import gg.desolve.commons.config.Config;
 import gg.desolve.commons.config.ConfigurationManager;
@@ -37,8 +38,9 @@ public final class Commons extends JavaPlugin {
         instanceManager = new InstanceManager();
         redisManager = new RedisManager(getConfig("storage.yml").getString("redis.url"));
         instanceManager.create(instanceManager.getInstance());
-        commandManager = new CommandManager(this, "commons.*");
-        this.adventure = BukkitAudiences.create(this);
+        commandManager = new CommandManager(this, "commons.*", "language.yml");
+        new CommandDirector(commandManager);
+        adventure = BukkitAudiences.create(this);
     }
 
     @Override
