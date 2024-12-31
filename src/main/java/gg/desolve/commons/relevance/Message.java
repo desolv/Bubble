@@ -40,4 +40,10 @@ public class Message {
         Bukkit.getOnlinePlayers().forEach(player -> send(player, message));
     }
 
+    public static void broadcast(String message, String permission) {
+        Bukkit.getOnlinePlayers().stream()
+                .filter(player -> player.hasPermission(permission))
+                .forEach(player -> send(player, message));
+    }
+
 }
