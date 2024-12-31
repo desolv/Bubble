@@ -46,7 +46,7 @@ public class Config {
     }
 
     public String getString(String path) {
-        return config.getString(path, "Not possible retrieving message");
+        return config.getString(path, "Unknown message");
     }
 
     public int getInt(String path) {
