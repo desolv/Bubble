@@ -7,6 +7,8 @@ import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.List;
+
 @Getter
 public class InstanceManager {
 
@@ -56,9 +58,19 @@ public class InstanceManager {
                 .keys("instance:*")
                 .stream()
                 .map(i -> gson.fromJson(i, Instance.class))
-                .filter(instance -> instance.getId().equals(instanceId))
+                .filter(instance -> instance.getId().equals(instanceId) && Converter.seconds(System.currentTimeMillis() - instance.getHeartbeat()) < 65)
                 .findFirst()
                 .get();
+    }
+
+    public List<Instance> retrieve() {
+        return Commons.getInstance()
+                .getRedisManager()
+                .keys("instance:*")
+                .stream()
+                .map(i -> gson.fromJson(i, Instance.class))
+                .filter(instance -> Converter.seconds(System.currentTimeMillis() - instance.getHeartbeat()) < 65)
+                .toList();
     }
 
     public void validate() {
