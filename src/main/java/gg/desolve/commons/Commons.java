@@ -6,6 +6,7 @@ import gg.desolve.commons.config.ConfigurationManager;
 import gg.desolve.commons.instance.InstanceManager;
 import gg.desolve.commons.redis.RedisManager;
 import lombok.Getter;
+import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class Commons extends JavaPlugin {
@@ -25,6 +26,9 @@ public final class Commons extends JavaPlugin {
     @Getter
     public CommandManager commandManager;
 
+    @Getter
+    private BukkitAudiences adventure;
+
     @Override
     public void onEnable() {
         instance = this;
@@ -34,6 +38,7 @@ public final class Commons extends JavaPlugin {
         redisManager = new RedisManager(getConfig("storage.yml").getString("redis.url"));
         instanceManager.create(instanceManager.getInstance());
         commandManager = new CommandManager(this, "commons.*");
+        this.adventure = BukkitAudiences.create(this);
     }
 
     @Override
