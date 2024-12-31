@@ -12,7 +12,7 @@ import org.bukkit.entity.Player;
 @Getter
 public class Message {
 
-    private static final String prefix = Commons.getInstance().getConfig("language.yml").getString("server_management.plugin-prefix");
+    private static final String prefix = Commons.getInstance().getConfig("language.yml").getString("server-management.plugin_prefix");
 
     public static String translate(String message) {
         return ChatColor.translateAlternateColorCodes('&',
