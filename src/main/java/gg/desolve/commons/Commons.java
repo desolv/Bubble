@@ -28,6 +28,9 @@ public final class Commons extends JavaPlugin {
     public CommandManager commandManager;
 
     @Getter
+    public CommandDirector commandDirector;
+
+    @Getter
     private BukkitAudiences adventure;
 
     @Override
@@ -39,7 +42,7 @@ public final class Commons extends JavaPlugin {
         redisManager = new RedisManager(getConfig("storage.yml").getString("redis.url"));
         instanceManager.create(instanceManager.getInstance());
         commandManager = new CommandManager(this, "commons.*", "language.yml");
-        new CommandDirector(commandManager);
+        commandDirector = new CommandDirector(commandManager);
         adventure = BukkitAudiences.create(this);
     }
 
