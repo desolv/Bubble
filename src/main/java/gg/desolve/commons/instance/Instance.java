@@ -1,6 +1,13 @@
 package gg.desolve.commons.instance;
 
+import gg.desolve.commons.relevance.Message;
 import lombok.Data;
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
 
 @Data
 public class Instance {
@@ -19,5 +26,24 @@ public class Instance {
         this.online = online;
         this.booting = booting;
         this.heartbeat = heartbeat;
+    }
+
+    public void broadcast(String message) {
+        Bukkit.getOnlinePlayers().forEach(player -> Message.send(player, message));
+    }
+
+    public void broadcast(String message, String permission) {
+        Bukkit.getOnlinePlayers().stream()
+                .filter(player -> (player.hasPermission(permission) ||
+                        Arrays.stream(permission.split("\\|")).anyMatch(player::hasPermission)))
+                .forEach(player -> Message.send(player, message));
+    }
+
+    public void command(String command) {
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
+    }
+
+    public List<UUID> players() {
+        return Bukkit.getOnlinePlayers().stream().map(Player::getUniqueId).toList();
     }
 }
