@@ -2,15 +2,15 @@ package gg.desolve.commons;
 
 import gg.desolve.commons.command.CommandDirector;
 import gg.desolve.commons.command.CommandManager;
+import gg.desolve.commons.config.Config;
 import gg.desolve.commons.config.ConfigurationManager;
 import gg.desolve.commons.instance.Instance;
 import gg.desolve.commons.instance.InstanceManager;
+import gg.desolve.commons.listener.ListenerDirector;
 import gg.desolve.commons.redis.RedisManager;
 import lombok.Getter;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.jetbrains.annotations.NotNull;
 
 public final class Commons extends JavaPlugin {
 
@@ -57,7 +57,7 @@ public final class Commons extends JavaPlugin {
         redisManager.close();
     }
 
-    public @NotNull FileConfiguration getConfig() {
-        return configurationManager.getConfig("language.yml").getConfig();
+    public Config getLanguageConfig() {
+        return configurationManager.getConfig("language.yml");
     }
 }

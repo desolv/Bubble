@@ -19,7 +19,7 @@ public class InstanceManager {
     public InstanceManager() {
         instance = new Instance(
                 Converter.generateId(),
-                Commons.getInstance().getConfig().getString("server.server_name"),
+                Commons.getInstance().getLanguageConfig().getString("server.server_name"),
                 Commons.getInstance().getServer().getVersion(),
                 0,
                 System.currentTimeMillis(),
@@ -43,10 +43,10 @@ public class InstanceManager {
     public void create(Instance instance) {
         Commons.getInstance().getRedisManager().set("instance:" + instance.getId(), gson.toJson(instance));
         Commons.getInstance().getLogger().info("New instance @ " + instance.getName() + " #" + instance.getId() + ".");
-        Message.broadcast(Commons.getInstance().getConfig().getString("instance.instance_create")
+        instance.broadcast(Commons.getInstance().getLanguageConfig().getString("instance.instance_create")
                         .replace("server%", instance.getName())
                         .replace("id%", instance.getId()),
-                "commons.admin");
+                "commons.*|commons.admin");
     }
 
     public void save(Instance instance) {
@@ -56,10 +56,10 @@ public class InstanceManager {
     public void remove(Instance instance) {
         Commons.getInstance().getRedisManager().remove("instance:" + instance.getId());
         Commons.getInstance().getLogger().info("Removed instance @ " + instance.getName() + " #" + instance.getId() + ".");
-        Message.broadcast(Commons.getInstance().getConfig().getString("instance.instance_remove")
+        instance.broadcast(Commons.getInstance().getLanguageConfig().getString("instance.instance_remove")
                         .replace("server%", instance.getName())
                         .replace("id%", instance.getId()),
-                "commons.admin");
+                "commons.*|commons.admin");
     }
 
     public Instance retrieve(String instanceId) {
