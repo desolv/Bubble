@@ -8,6 +8,7 @@ import gg.desolve.commons.instance.Instance;
 import gg.desolve.commons.instance.InstanceManager;
 import gg.desolve.commons.listener.ListenerDirector;
 import gg.desolve.commons.redis.RedisManager;
+import gg.desolve.commons.redis.subscribe.SubscriberDirector;
 import lombok.Getter;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -36,6 +37,9 @@ public final class Commons extends JavaPlugin {
     public ListenerDirector listenerDirector;
 
     @Getter
+    public SubscriberDirector subscriberDirector;
+
+    @Getter
     private BukkitAudiences adventure;
 
     @Override
@@ -49,6 +53,7 @@ public final class Commons extends JavaPlugin {
         commandManager = new CommandManager(this, "commons.*", "language.yml");
         commandDirector = new CommandDirector(commandManager);
         listenerDirector = new ListenerDirector();
+        subscriberDirector = new SubscriberDirector();
         adventure = BukkitAudiences.create(this);
     }
 
