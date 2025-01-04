@@ -19,16 +19,14 @@ public class Instance {
     private long online;
     private final long booting;
     private long heartbeat;
-    private boolean disabling;
 
-    public Instance(String id, String name, String version, long online, long booting, long heartbeat, boolean disabling) {
+    public Instance(String id, String name, String version, long online, long booting, long heartbeat) {
         this.id = id;
         this.name = name;
         this.version = version;
         this.online = online;
         this.booting = booting;
         this.heartbeat = heartbeat;
-        this.disabling = disabling;
     }
 
     public void broadcast(String message) {

@@ -23,8 +23,7 @@ public class InstanceManager {
                 Commons.getInstance().getServer().getVersion(),
                 0,
                 System.currentTimeMillis(),
-                System.currentTimeMillis(),
-                false
+                System.currentTimeMillis()
         );
 
         new BukkitRunnable() {

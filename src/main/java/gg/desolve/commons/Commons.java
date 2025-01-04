@@ -59,10 +59,7 @@ public final class Commons extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        Instance instance = instanceManager.getInstance();
-        instance.setDisabling(true);
-        instanceManager.remove(instance);
-
+        instanceManager.remove(instanceManager.getInstance());
         redisManager.close();
     }
 
