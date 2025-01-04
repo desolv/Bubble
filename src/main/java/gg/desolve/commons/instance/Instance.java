@@ -1,5 +1,6 @@
 package gg.desolve.commons.instance;
 
+import gg.desolve.commons.Commons;
 import gg.desolve.commons.relevance.Message;
 import lombok.Data;
 import org.bukkit.Bukkit;
@@ -31,10 +32,14 @@ public class Instance {
     }
 
     public void broadcast(String message) {
+        Commons.getInstance().getRedisManager().publish("Broadcast", message);
+    }
+
+    public void announce(String message) {
         Bukkit.getOnlinePlayers().forEach(player -> Message.send(player, message));
     }
 
-    public void broadcast(String message, String permission) {
+    public void announce(String message, String permission) {
         Bukkit.getOnlinePlayers().stream()
                 .filter(player -> (player.hasPermission(permission) ||
                         Arrays.stream(permission.split("\\|")).anyMatch(player::hasPermission)))

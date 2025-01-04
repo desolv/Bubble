@@ -1,11 +1,13 @@
 package gg.desolve.commons.redis.subscribe;
 
 import gg.desolve.commons.Commons;
+import lombok.Getter;
 import redis.clients.jedis.JedisPubSub;
 
 import java.util.Arrays;
 import java.util.List;
 
+@Getter
 public class SubscriberDirector {
 
     private final List<JedisPubSub> subscribers;
@@ -16,7 +18,7 @@ public class SubscriberDirector {
 
     private List<JedisPubSub> subscribers() {
         List<JedisPubSub> subscriberList = Arrays.asList(
-                new InstanceSubscriber()
+                new BroadcastSubscriber()
         );
 
         subscriberList.forEach(subscriber ->
