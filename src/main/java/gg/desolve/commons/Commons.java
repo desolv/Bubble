@@ -33,6 +33,9 @@ public final class Commons extends JavaPlugin {
     public CommandDirector commandDirector;
 
     @Getter
+    public ListenerDirector listenerDirector;
+
+    @Getter
     private BukkitAudiences adventure;
 
     @Override
@@ -45,6 +48,7 @@ public final class Commons extends JavaPlugin {
         instanceManager.create(instanceManager.getInstance());
         commandManager = new CommandManager(this, "commons.*", "language.yml");
         commandDirector = new CommandDirector(commandManager);
+        listenerDirector = new ListenerDirector();
         adventure = BukkitAudiences.create(this);
     }
 
