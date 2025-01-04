@@ -43,7 +43,7 @@ public class InstanceManager {
     public void create(Instance instance) {
         Commons.getInstance().getRedisManager().set("instance:" + instance.getId(), gson.toJson(instance));
         Commons.getInstance().getLogger().info("New instance @ " + instance.getName() + " #" + instance.getId() + ".");
-        Message.broadcast(Commons.getInstance().getConfig().getString("instance-management.instance_create")
+        Message.broadcast(Commons.getInstance().getConfig().getString("instance.instance_create")
                         .replace("server%", instance.getName())
                         .replace("id%", instance.getId()),
                 "commons.admin");
@@ -56,7 +56,7 @@ public class InstanceManager {
     public void remove(Instance instance) {
         Commons.getInstance().getRedisManager().remove("instance:" + instance.getId());
         Commons.getInstance().getLogger().info("Removed instance @ " + instance.getName() + " #" + instance.getId() + ".");
-        Message.broadcast(Commons.getInstance().getConfig().getString("instance-management.instance_remove")
+        Message.broadcast(Commons.getInstance().getConfig().getString("instance.instance_remove")
                         .replace("server%", instance.getName())
                         .replace("id%", instance.getId()),
                 "commons.admin");
