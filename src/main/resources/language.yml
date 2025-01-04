@@ -1,9 +1,9 @@
-server-management:
+server:
   server_name: "desolve"
   server_display: "Desolve"
   plugin_prefix: "<aqua><bold>desolve-commons <gray>»</bold><white> "
 
-instance-management:
+instance:
   instance_create: "prefix% <green>A new instance @server% <dark_gray>id% <green>has been initialised."
   instance_remove: "prefix% <red>The instance @server% <dark_gray>id% <red>has been removed."
 
