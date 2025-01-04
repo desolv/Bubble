@@ -12,7 +12,7 @@ import org.bukkit.entity.Player;
 @Getter
 public class Message {
 
-    private static final String prefix = Commons.getInstance().getConfig().getString("server.plugin_prefix");
+    private static final String prefix = Commons.getInstance().getLanguageConfig().getString("server.plugin_prefix");
 
     public static String translate(String message) {
         return ChatColor.translateAlternateColorCodes('&',
@@ -34,16 +34,6 @@ public class Message {
 
         message = message.replace("<newline>", "\n");
         sender.sendMessage(MiniMessage.miniMessage().stripTags(message));
-    }
-
-    public static void broadcast(String message) {
-        Bukkit.getOnlinePlayers().forEach(player -> send(player, message));
-    }
-
-    public static void broadcast(String message, String permission) {
-        Bukkit.getOnlinePlayers().stream()
-                .filter(player -> player.hasPermission(permission))
-                .forEach(player -> send(player, message));
     }
 
 }
