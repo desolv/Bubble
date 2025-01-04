@@ -4,6 +4,7 @@ import co.aikar.commands.BaseCommand;
 import co.aikar.commands.CommandHelp;
 import co.aikar.commands.annotation.*;
 import gg.desolve.commons.Commons;
+import gg.desolve.commons.instance.Instance;
 import gg.desolve.commons.relevance.Converter;
 import gg.desolve.commons.relevance.Message;
 import org.bukkit.command.CommandSender;
@@ -22,6 +23,19 @@ public class InstanceCommand extends BaseCommand {
         help.showHelp();
     }
 
+    @Subcommand("simple")
+    @CommandPermission("commons.command.instance|commons.command.instance.simple")
+    @Description("Retrieve instance information")
+    public static void onSimple(CommandSender sender) {
+        Instance instance = Commons.getInstance().getInstanceManager().getInstance();
+        Message.send(sender,
+                "<newline><aqua><bold>@" + Commons.getInstance().getLanguageConfig().getString("server.server_name") + "'s Instance information</bold>" +
+                "<newline><white>Id: <dark_gray>" + instance.getId() +
+                "<newline><white>Version: <aqua>" + instance.getVersion() +
+                "<newline><white>Booting: <aqua>" + Converter.time(System.currentTimeMillis() - instance.getBooting()) +
+                "<newline><white>Online: <aqua>" + instance.getOnline());
+    }
+
     @Subcommand("retrieve")
     @CommandPermission("commons.command.instance|commons.command.instance.retrieve")
     @Description("Retrieve all instances")
@@ -30,19 +44,16 @@ public class InstanceCommand extends BaseCommand {
                 .getInstanceManager()
                 .retrieve()
                 .stream()
-                .map(instance -> {
-                    String hoverText = ("<hover:show_text:'<dark_gray>#id%" +
-                            "<newline><green>version%" +
-                            "<newline><red>Heartbeat of heartbeat% seconds" +
-                            "<newline><yellow>Currently online% online players" +
-                            "<newline><white>Click to reload instances'>")
+                .map(instance -> "<click:run_command:/instance retrieve>" +
+                        ("<hover:show_text:'<dark_gray>#id%" +
+                        "<newline><green>version%" +
+                        "<newline><red>Heartbeat of heartbeat% seconds" +
+                        "<newline><yellow>Currently online% online players" +
+                        "<newline><white>Click to reload instances'>")
                             .replace("version%", instance.getVersion())
                             .replace("heartbeat%", String.valueOf(Converter.seconds(System.currentTimeMillis() - instance.getHeartbeat())))
                             .replace("online%", String.valueOf(instance.getOnline()))
-                            .replace("id%", instance.getId());
-
-                    return "<click:run_command:/instance retrieve>" + hoverText + "<aqua>@" + instance.getName();
-                })
+                            .replace("id%", instance.getId()) + "<aqua>@" + instance.getName())
                 .collect(Collectors.toList());
 
         Message.send(sender, "prefix% Currently hosting " + instances.size() + " instances: " + String.join("<white>, <white>", instances));
