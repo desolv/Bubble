@@ -18,7 +18,7 @@ public class ListenerDirector {
 
     private List<Listener> listeners() {
         List<Listener> listenerList = Arrays.asList(
-                new ListenerManager()
+                new PlayerListener()
         );
 
         listenerList.forEach(listener -> Commons.getInstance().getServer().getPluginManager().registerEvents(listener, Commons.getInstance()));
