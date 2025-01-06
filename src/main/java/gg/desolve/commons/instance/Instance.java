@@ -29,10 +29,6 @@ public class Instance {
         this.heartbeat = heartbeat;
     }
 
-    public void broadcast(String message) {
-        Commons.getInstance().getRedisManager().publish("Broadcast", message);
-    }
-
     public void announce(String message) {
         Bukkit.getOnlinePlayers().forEach(player -> Message.send(player, message));
     }

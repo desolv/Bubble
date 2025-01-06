@@ -43,7 +43,7 @@ public class InstanceManager {
         Commons.getInstance().getRedisManager().set("instance:" + instance.getId(), gson.toJson(instance));
         Commons.getInstance().getLogger().info("New instance @ " + instance.getName() + " #" + instance.getId() + ".");
 
-        instance.broadcast(Commons.getInstance().getLanguageConfig().getString("instance.instance_create")
+        broadcast(Commons.getInstance().getLanguageConfig().getString("instance.instance_create")
                 .replace("server%", instance.getName())
                 .replace("id%", instance.getId()) + "&%$commons.*|commons.admin");
     }
@@ -56,7 +56,7 @@ public class InstanceManager {
         Commons.getInstance().getRedisManager().remove("instance:" + instance.getId());
         Commons.getInstance().getLogger().info("Removed instance @ " + instance.getName() + " #" + instance.getId() + ".");
 
-        instance.broadcast(Commons.getInstance().getLanguageConfig().getString("instance.instance_remove")
+        broadcast(Commons.getInstance().getLanguageConfig().getString("instance.instance_remove")
                 .replace("server%", instance.getName())
                 .replace("id%", instance.getId()) + "&%$commons.*|commons.admin");
     }
@@ -90,6 +90,10 @@ public class InstanceManager {
                 .map(i -> gson.fromJson(i, Instance.class))
                 .filter(instance -> Converter.seconds(System.currentTimeMillis() - instance.getHeartbeat()) > 65)
                 .forEach(this::remove);
+    }
+
+    public void broadcast(String message) {
+        Commons.getInstance().getRedisManager().publish("Broadcast", message);
     }
 
 }
