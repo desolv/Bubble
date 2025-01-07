@@ -1,6 +1,8 @@
 package gg.desolve.commons.command;
 
-import co.aikar.commands.*;
+import co.aikar.commands.CommandIssuer;
+import co.aikar.commands.Locales;
+import co.aikar.commands.PaperCommandManager;
 import gg.desolve.commons.Commons;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;

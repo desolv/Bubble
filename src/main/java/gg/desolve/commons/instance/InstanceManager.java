@@ -3,7 +3,6 @@ package gg.desolve.commons.instance;
 import com.google.gson.Gson;
 import gg.desolve.commons.Commons;
 import gg.desolve.commons.relevance.Converter;
-import gg.desolve.commons.relevance.Message;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;

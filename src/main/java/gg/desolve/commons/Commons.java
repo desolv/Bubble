@@ -4,7 +4,6 @@ import gg.desolve.commons.command.CommandDirector;
 import gg.desolve.commons.command.CommandManager;
 import gg.desolve.commons.config.Config;
 import gg.desolve.commons.config.ConfigurationManager;
-import gg.desolve.commons.instance.Instance;
 import gg.desolve.commons.instance.InstanceManager;
 import gg.desolve.commons.listener.ListenerDirector;
 import gg.desolve.commons.redis.RedisManager;

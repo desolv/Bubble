@@ -1,6 +1,5 @@
 package gg.desolve.commons.instance;
 
-import gg.desolve.commons.Commons;
 import gg.desolve.commons.relevance.Message;
 import lombok.Data;
 import org.bukkit.Bukkit;
