@@ -30,4 +30,7 @@ public class MongoManager {
         }
     }
 
+    public void close() {
+        mongoClient.close();
+    }
 }
