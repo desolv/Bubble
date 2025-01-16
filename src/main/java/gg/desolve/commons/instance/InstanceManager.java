@@ -66,9 +66,10 @@ public class InstanceManager {
                 .keys("instance:*")
                 .stream()
                 .map(i -> gson.fromJson(i, Instance.class))
-                .filter(instance -> instance.getId().equals(instanceId) && Converter.seconds(System.currentTimeMillis() - instance.getHeartbeat()) < 65)
+                .filter(instance -> (instance.getId().equals(instanceId) || instance.getName().equals(instanceId))
+                        && Converter.seconds(System.currentTimeMillis() - instance.getHeartbeat()) < 65)
                 .findFirst()
-                .get();
+                .orElse(null);
     }
 
     public List<Instance> retrieve() {
