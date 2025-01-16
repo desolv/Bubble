@@ -44,12 +44,8 @@ public class CommandDirector {
                 Scope.class, s -> {
                     String popName = s.popFirstArg();
                     Scope scope = Commons.getInstance().getScopeManager().retrieve(popName);
-
-                    if (scope == null) {
-                        throw new InvalidCommandArgument(Message.translate("<red>Scope matching <yellow>" + popName + " <red>not found."), false);
-                    }
-
-                    return scope;
+                    return Optional.ofNullable(scope).orElseThrow(() ->
+                            new InvalidCommandArgument(Message.translate("<red>Scope matching <yellow>" + popName + " <red>not found."), false));
                 });
 
         commandManager.getCommandContexts().registerContext(
