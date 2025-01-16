@@ -5,14 +5,9 @@ import co.aikar.commands.CommandHelp;
 import co.aikar.commands.annotation.*;
 import gg.desolve.commons.Commons;
 import gg.desolve.commons.instance.Instance;
-import gg.desolve.commons.relevance.Converter;
 import gg.desolve.commons.relevance.Message;
 import gg.desolve.commons.scope.Scope;
-import gg.desolve.commons.scope.ScopeManager;
 import org.bukkit.command.CommandSender;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @CommandAlias("scope")
 public class ScopeCommand extends BaseCommand {
