@@ -51,8 +51,8 @@ public final class Commons extends JavaPlugin {
 
         configurationManager = new ConfigurationManager(this, "language.yml", "storage.yml");
         instanceManager = new InstanceManager();
-        redisManager = new RedisManager(configurationManager.getConfig("storage.yml").getString("redis.url"));
-        mongoManager = new MongoManager(configurationManager.getConfig("storage.yml").getString("mongo.url"));
+        redisManager = new RedisManager(getStorageConfig().getString("redis.url"));
+        mongoManager = new MongoManager(getStorageConfig().getString("mongo.url"), getStorageConfig().getString("mongo.database"));
         instanceManager.create(instanceManager.getInstance());
         commandManager = new CommandManager(this, "commons.*", "language.yml");
         commandDirector = new CommandDirector(commandManager);
@@ -70,5 +70,9 @@ public final class Commons extends JavaPlugin {
 
     public Config getLanguageConfig() {
         return configurationManager.getConfig("language.yml");
+    }
+
+    public Config getStorageConfig() {
+        return configurationManager.getConfig("storage.yml");
     }
 }
