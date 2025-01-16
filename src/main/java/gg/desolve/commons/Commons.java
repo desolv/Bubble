@@ -9,6 +9,7 @@ import gg.desolve.commons.listener.ListenerDirector;
 import gg.desolve.commons.mongo.MongoManager;
 import gg.desolve.commons.redis.RedisManager;
 import gg.desolve.commons.redis.subscribe.SubscriberDirector;
+import gg.desolve.commons.scope.ScopeManager;
 import lombok.Getter;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -43,6 +44,9 @@ public final class Commons extends JavaPlugin {
     public SubscriberDirector subscriberDirector;
 
     @Getter
+    public ScopeManager scopeManager;
+
+    @Getter
     private BukkitAudiences adventure;
 
     @Override
@@ -54,6 +58,7 @@ public final class Commons extends JavaPlugin {
         redisManager = new RedisManager(getStorageConfig().getString("redis.url"));
         mongoManager = new MongoManager(getStorageConfig().getString("mongo.url"), getStorageConfig().getString("mongo.database"));
         instanceManager.create(instanceManager.getInstance());
+        scopeManager = new ScopeManager();
         commandManager = new CommandManager(this, "commons.*", "language.yml");
         commandDirector = new CommandDirector(commandManager);
         listenerDirector = new ListenerDirector();
@@ -64,6 +69,7 @@ public final class Commons extends JavaPlugin {
     @Override
     public void onDisable() {
         instanceManager.remove(instanceManager.getInstance());
+        scopeManager.save();
         redisManager.close();
         mongoManager.close();
     }
