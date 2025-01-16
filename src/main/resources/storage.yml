@@ -1,6 +1,5 @@
 mongo:
   url: ''
-  database: ''
 
 redis:
   url: ''

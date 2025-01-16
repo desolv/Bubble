@@ -6,6 +6,7 @@ import gg.desolve.commons.config.Config;
 import gg.desolve.commons.config.ConfigurationManager;
 import gg.desolve.commons.instance.InstanceManager;
 import gg.desolve.commons.listener.ListenerDirector;
+import gg.desolve.commons.mongo.MongoManager;
 import gg.desolve.commons.redis.RedisManager;
 import gg.desolve.commons.redis.subscribe.SubscriberDirector;
 import lombok.Getter;
@@ -22,6 +23,9 @@ public final class Commons extends JavaPlugin {
 
     @Getter
     public RedisManager redisManager;
+
+    @Getter
+    public MongoManager mongoManager;
 
     @Getter
     public InstanceManager instanceManager;
@@ -48,6 +52,7 @@ public final class Commons extends JavaPlugin {
         configurationManager = new ConfigurationManager(this, "language.yml", "storage.yml");
         instanceManager = new InstanceManager();
         redisManager = new RedisManager(configurationManager.getConfig("storage.yml").getString("redis.url"));
+        mongoManager = new MongoManager(configurationManager.getConfig("storage.yml").getString("mongo.url"));
         instanceManager.create(instanceManager.getInstance());
         commandManager = new CommandManager(this, "commons.*", "language.yml");
         commandDirector = new CommandDirector(commandManager);
@@ -60,6 +65,7 @@ public final class Commons extends JavaPlugin {
     public void onDisable() {
         instanceManager.remove(instanceManager.getInstance());
         redisManager.close();
+        mongoManager.close();
     }
 
     public Config getLanguageConfig() {
