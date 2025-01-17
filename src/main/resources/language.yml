@@ -4,8 +4,27 @@ server:
   plugin_prefix: "<aqua><bold>desolve-commons <gray>»</bold><white> "
 
 instance:
-  instance_create: "prefix% <green>A new instance @server% <dark_gray>id% <green>has been initialised."
-  instance_remove: "prefix% <red>The instance @server% <dark_gray>id% <red>has been removed."
+  instance_create: "<green>* A new instance @server% <dark_gray>id% <green>has been initialised."
+  instance_remove: "<red>* The instance @server% <dark_gray>id% <red>has been removed."
+
+reboot:
+  reboot_timing:
+    - "1h"
+    - "30m"
+    - "10m"
+    - "5m"
+    - "1m"
+    - "30s"
+    - "10s"
+    - "5s"
+    - "4s"
+    - "3s"
+    - "2s"
+    - "1s"
+  reboot_message: "<red>* Instance will be rebooting in remaining%."
+  reboot_create: "prefix% <green>A new reboot as been initialised on @server%."
+  reboot_remove: "prefix% <red>Reboot for @server% has been removed."
+
 
 acf-core:
   permission_denied:  "&cYou are missing required permissions."
