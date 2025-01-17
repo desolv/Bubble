@@ -7,6 +7,7 @@ import gg.desolve.commons.config.ConfigurationManager;
 import gg.desolve.commons.instance.InstanceManager;
 import gg.desolve.commons.listener.ListenerDirector;
 import gg.desolve.commons.mongo.MongoManager;
+import gg.desolve.commons.reboot.RebootManager;
 import gg.desolve.commons.redis.RedisManager;
 import gg.desolve.commons.redis.subscribe.SubscriberDirector;
 import gg.desolve.commons.scope.ScopeManager;
@@ -47,6 +48,9 @@ public final class Commons extends JavaPlugin {
     public ScopeManager scopeManager;
 
     @Getter
+    public RebootManager rebootManager;
+
+    @Getter
     private BukkitAudiences adventure;
 
     @Override
@@ -63,6 +67,7 @@ public final class Commons extends JavaPlugin {
         commandDirector = new CommandDirector(commandManager);
         listenerDirector = new ListenerDirector();
         subscriberDirector = new SubscriberDirector();
+        rebootManager = new RebootManager();
         adventure = BukkitAudiences.create(this);
     }
 

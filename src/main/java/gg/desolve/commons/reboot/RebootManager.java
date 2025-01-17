@@ -13,17 +13,21 @@ public class RebootManager {
     public Reboot reboot;
 
     public RebootManager() {
+        String rebootTime = Commons.getInstance().getLanguageConfig().getString("reboot.reboot_time");
+        long duration = Converter.duration(rebootTime);
+
         reboot = new Reboot(
                 null,
                 System.currentTimeMillis(),
                 null,
                 0L,
-                Converter.duration("24h"),
-                true
+                duration,
+                duration > 0
         );
 
-        start();
+        if (duration > 0) start();
     }
+
 
     public void start() {
         List<String> intervals = Commons.getInstance().getLanguageConfig().getConfig().getStringList("reboot.reboot_timing");

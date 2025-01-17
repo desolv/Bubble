@@ -8,6 +8,7 @@ instance:
   instance_remove: "<red>* The instance @server% <dark_gray>id% <red>has been removed."
 
 reboot:
+  reboot_time: "24h"
   reboot_timing:
     - "1h"
     - "30m"
