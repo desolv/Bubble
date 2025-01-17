@@ -2,12 +2,12 @@ package gg.desolve.commons.reboot;
 
 import gg.desolve.commons.Commons;
 import gg.desolve.commons.relevance.Converter;
-import lombok.Getter;
+import lombok.Data;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.List;
 
-@Getter
+@Data
 public class RebootManager {
 
     public Reboot reboot;
