@@ -26,6 +26,17 @@ reboot:
   reboot_create: "prefix% <green>A new reboot as been initialised on @server%."
   reboot_remove: "prefix% <red>Reboot for @server% has been removed."
 
+durations:
+  - "10s"
+  - "30s"
+  - "1m"
+  - "5m"
+  - "30m"
+  - "1h"
+  - "4h"
+  - "1d"
+  - "1w"
+  - "1M"
 
 acf-core:
   permission_denied:  "&cYou are missing required permissions."
