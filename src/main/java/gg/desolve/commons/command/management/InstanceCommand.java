@@ -40,16 +40,11 @@ public class InstanceCommand extends BaseCommand {
     @CommandPermission("commons.command.instance|commons.command.instance.retrieve")
     @Description("Retrieve all instances")
     public static void onRetrieve(CommandSender sender) {
-        List<String> instances = Commons.getInstance()
-                .getInstanceManager()
-                .retrieve()
+        List<String> instances = Commons.getInstance().getInstanceManager().retrieve()
                 .stream()
                 .map(instance -> "<click:run_command:/instance retrieve>" +
-                        ("<hover:show_text:'<dark_gray>#id%" +
-                        "<newline><green>version%" +
-                        "<newline><red>Heartbeat of heartbeat% seconds" +
-                        "<newline><yellow>Currently online% online players" +
-                        "<newline><white>Click to reload instances'>")
+                        ("<hover:show_text:'<dark_gray>#id%" + "<newline><green>version%" +
+                        "<newline><red>Heartbeat of heartbeat% seconds" + "<newline><yellow>Currently online% online players'>")
                             .replace("version%", instance.getVersion())
                             .replace("heartbeat%", String.valueOf(Converter.seconds(System.currentTimeMillis() - instance.getHeartbeat())))
                             .replace("online%", String.valueOf(instance.getOnline()))

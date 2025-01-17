@@ -1,6 +1,7 @@
 package gg.desolve.commons.scope;
 
 import com.google.gson.Gson;
+import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.ReplaceOptions;
 import gg.desolve.commons.Commons;
 import org.bson.Document;
@@ -70,10 +71,10 @@ public class ScopeManager {
     public void save() {
         Commons.getInstance().getRedisManager().keys("scope:*")
                 .forEach(scopeKey -> {
-                    Scope scope = gson.fromJson(Commons.getInstance().getRedisManager().get(scopeKey), Scope.class);
+                    Scope scope = gson.fromJson(scopeKey, Scope.class);
                     Commons.getInstance().getMongoManager().getMongoDatabase().getCollection("scopes")
                             .replaceOne(
-                                    new Document("name", scope.getName()),
+                                    Filters.eq("name", scope.getName()),
                                     Document.parse(gson.toJson(scope)),
                                     new ReplaceOptions().upsert(true));
                 });
