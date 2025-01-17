@@ -1,6 +1,8 @@
 package gg.desolve.commons.relevance;
 
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Converter {
 
@@ -47,4 +49,45 @@ public class Converter {
             return seconds + " second" + (seconds == 1 ? "" : "s");
         }
     }
+
+    public static long duration(String duration) {
+        if (duration.equalsIgnoreCase("perm") || duration.equalsIgnoreCase("permanent")) {
+            return Long.MAX_VALUE;
+        }
+
+        long time = 0L;
+        Matcher matcher = Pattern.compile("(\\d+)([smhdwMy])").matcher(duration);
+
+        while (matcher.find()) {
+            long value = Long.parseLong(matcher.group(1));
+            String type = matcher.group(2);
+
+            switch (type) {
+                case "s":
+                    time += value;
+                    break;
+                case "m":
+                    time += value * 60;
+                    break;
+                case "h":
+                    time += value * 60 * 60;
+                    break;
+                case "d":
+                    time += value * 60 * 60 * 24;
+                    break;
+                case "w":
+                    time += value * 60 * 60 * 24 * 7;
+                    break;
+                case "M":
+                    time += value * 60 * 60 * 24 * 30;
+                    break;
+                case "y":
+                    time += value * 60 * 60 * 24 * 365;
+                    break;
+            }
+        }
+
+        return time == 0 ? -1 : time * 1000;
+    }
+
 }
