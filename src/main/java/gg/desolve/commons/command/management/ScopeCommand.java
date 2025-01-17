@@ -9,6 +9,8 @@ import gg.desolve.commons.relevance.Message;
 import gg.desolve.commons.scope.Scope;
 import org.bukkit.command.CommandSender;
 
+import java.util.List;
+
 @CommandAlias("scope")
 public class ScopeCommand extends BaseCommand {
 
@@ -18,6 +20,24 @@ public class ScopeCommand extends BaseCommand {
     public static void onHelp(CommandHelp help) {
         help.setPerPage(6);
         help.showHelp();
+    }
+
+    @Subcommand("retrieve")
+    @CommandPermission("commons.command.scope|commons.command.scope.retrieve")
+    @Description("Retrieve all scopes")
+    public static void onRetrieve(CommandSender sender) {
+        List<String> scopes = Commons.getInstance().getScopeManager().retrieve()
+                .stream()
+                .map(scope -> "<click:run_command:/scope retrieve>" +
+                        ("<hover:show_text:'<white>Current instances are <yellow>size% <white>named as <newline><yellow>instances%'>")
+                                .replace("size%", String.valueOf(scope.getInstances().size()))
+                                .replace("instances%", scope.getInstances().isEmpty() ?
+                                        "<red>None" :
+                                        String.join("<white>, <white>", scope.getInstances())) +
+                        "<aqua>@" + scope.getName())
+                .toList();
+
+        Message.send(sender, "prefix% Currently hosting " + scopes.size() + " scopes: " + String.join("<white>, <white>", scopes));
     }
 
     @Subcommand("create")
