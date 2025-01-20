@@ -9,6 +9,7 @@ instance:
   instance_remove: "<red>* The instance @server% <dark_gray>id% <red>has been removed."
   welcome_instance_lifespan: "<gray>Instance has been online for time%."
   welcome_instance_schedule: "<green>Instance scheduled to reboot in time%."
+  welcome_instance_not_schedule: "<red>Instance is not scheduled to reboot."
 
 reboot:
   reboot_time: "24h"
