@@ -34,7 +34,7 @@ public class RebootCommand extends BaseCommand {
             return;
         }
 
-        Message.send(sender, "prefix% <red>A reboot is not scheduled.");
+        Message.send(sender, "prefix% <red>A reboot is not scheduled it was removed <gray>by " + (reboot.getRemovedBy() != null ? reboot.getRemovedBy() : "Console" + "."));
     }
 
     @Subcommand("invalidate")
@@ -76,7 +76,7 @@ public class RebootCommand extends BaseCommand {
                 System.currentTimeMillis(),
                 null,
                 0L,
-                duration.getDuration(),
+                duration.duration(),
                 true
         );
 
