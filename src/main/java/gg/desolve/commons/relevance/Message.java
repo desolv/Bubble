@@ -8,6 +8,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.Arrays;
+
 @Getter
 public class Message {
 
@@ -21,8 +23,16 @@ public class Message {
     }
 
     public static void send(Player player, String message) {
+        if (message.isEmpty()) return;
+
         Commons.getInstance().getAdventure().player(player)
                 .sendMessage(MiniMessage.miniMessage().deserialize(message.replace("prefix%", prefix)));
+    }
+
+    public static void send(Player player, String message, String permission) {
+        if ((player.hasPermission(permission) ||
+                Arrays.stream(permission.split("\\|")).anyMatch(player::hasPermission)))
+            send(player, message);
     }
 
     public static void send(CommandSender sender, String message) {
