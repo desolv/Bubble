@@ -2,10 +2,13 @@ server:
   server_name: "desolve"
   server_display: "Desolve"
   plugin_prefix: "<aqua><bold>desolve-commons <gray>»</bold><white> "
+  welcome_motd: "<newline><white><bold>Welcome to </bold><aqua>server%<white><bold>!</bold><newline><gray>Sample text right here...<newline>"
 
 instance:
   instance_create: "<green>* A new instance @server% <dark_gray>id% <green>has been initialised."
   instance_remove: "<red>* The instance @server% <dark_gray>id% <red>has been removed."
+  welcome_instance_lifespan: "<gray>Instance has been online for time%."
+  welcome_instance_schedule: "<green>Instance scheduled to reboot in time%."
 
 reboot:
   reboot_time: "24h"
