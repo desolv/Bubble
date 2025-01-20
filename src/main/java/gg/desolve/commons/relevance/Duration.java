@@ -1,8 +1,5 @@
 package gg.desolve.commons.relevance;
 
-import lombok.Getter;
-
-@Getter
 public record Duration(long duration) {
 
     public static Duration duration(String duration) {
