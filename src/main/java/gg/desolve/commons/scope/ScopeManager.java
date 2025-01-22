@@ -26,10 +26,16 @@ public class ScopeManager {
 
     public void save(Scope scope) {
         Commons.getInstance().getRedisManager().set("scope:" + scope.getName(), gson.toJson(scope));
+
+        Commons.getInstance().getMongoManager().getMongoDatabase().getCollection("scopes")
+                .replaceOne(Filters.eq("name", scope.getName()), Document.parse(gson.toJson(scope)),
+                        new ReplaceOptions().upsert(true));
     }
 
     public void delete(Scope scope) {
         Commons.getInstance().getRedisManager().remove("scope:" + scope.getName());
+        Commons.getInstance().getMongoManager().getMongoDatabase().getCollection("scopes")
+                .deleteOne(Filters.eq("name", scope.getName()));
         Commons.getInstance().getLogger().info("Removed scope @ " + scope.getName() + ".");
     }
 
@@ -67,18 +73,4 @@ public class ScopeManager {
                     Commons.getInstance().getRedisManager().set("scope:" + scope.getName(), gson.toJson(scope));
         });
     }
-
-    public void save() {
-        Commons.getInstance().getRedisManager().keys("scope:*")
-                .forEach(scopeKey -> {
-                    Scope scope = gson.fromJson(scopeKey, Scope.class);
-                    Commons.getInstance().getMongoManager().getMongoDatabase().getCollection("scopes")
-                            .replaceOne(
-                                    Filters.eq("name", scope.getName()),
-                                    Document.parse(gson.toJson(scope)),
-                                    new ReplaceOptions().upsert(true));
-                });
-    }
-
-
 }
