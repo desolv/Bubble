@@ -61,9 +61,7 @@ public class InstanceManager {
     }
 
     public Instance retrieve(String instanceId) {
-        return Commons.getInstance()
-                .getRedisManager()
-                .keys("instance:*")
+        return Commons.getInstance().getRedisManager().keys("instance:*")
                 .stream()
                 .map(i -> gson.fromJson(i, Instance.class))
                 .filter(instance -> (instance.getId().equals(instanceId) || instance.getName().equals(instanceId))
@@ -73,9 +71,7 @@ public class InstanceManager {
     }
 
     public List<Instance> retrieve() {
-        return Commons.getInstance()
-                .getRedisManager()
-                .keys("instance:*")
+        return Commons.getInstance().getRedisManager().keys("instance:*")
                 .stream()
                 .map(i -> gson.fromJson(i, Instance.class))
                 .filter(instance -> Converter.seconds(System.currentTimeMillis() - instance.getHeartbeat()) < 65)
@@ -83,9 +79,7 @@ public class InstanceManager {
     }
 
     public void validate() {
-        Commons.getInstance()
-                .getRedisManager()
-                .keys("instance:*")
+        Commons.getInstance().getRedisManager().keys("instance:*")
                 .stream()
                 .map(i -> gson.fromJson(i, Instance.class))
                 .filter(instance -> Converter.seconds(System.currentTimeMillis() - instance.getHeartbeat()) > 65)

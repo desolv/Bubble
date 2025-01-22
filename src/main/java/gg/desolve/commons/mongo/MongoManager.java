@@ -6,10 +6,10 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoDatabase;
 import gg.desolve.commons.Commons;
-import lombok.Getter;
+import lombok.Data;
 import org.bson.UuidRepresentation;
 
-@Getter
+@Data
 public class MongoManager {
 
     private MongoClient mongoClient;
