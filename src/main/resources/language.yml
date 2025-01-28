@@ -1,5 +1,5 @@
 server:
-  server_name: "desolve"
+  server_name: "lobby"
   server_display: "Desolve"
   plugin_prefix: "<aqua><bold>desolve-commons <gray>»</bold><white> "
   welcome_motd: "<newline><white><bold>Welcome to </bold><aqua>server%<white><bold>!</bold><newline><gray>Sample text right here...<newline>"

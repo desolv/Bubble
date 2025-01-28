@@ -1,6 +1,7 @@
-package gg.desolve.commons.redis.subscribe;
+package gg.desolve.commons.redis;
 
 import gg.desolve.commons.Commons;
+import gg.desolve.commons.redis.subscribe.BroadcastSubscriber;
 import lombok.Getter;
 import redis.clients.jedis.JedisPubSub;
 

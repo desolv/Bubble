@@ -4,8 +4,8 @@ import co.aikar.commands.BaseCommand;
 import co.aikar.commands.CommandHelp;
 import co.aikar.commands.annotation.*;
 import gg.desolve.commons.Commons;
-import gg.desolve.commons.instance.Instance;
 import gg.desolve.commons.relevance.Converter;
+import gg.desolve.commons.instance.Instance;
 import gg.desolve.commons.relevance.Message;
 import org.bukkit.command.CommandSender;
 
