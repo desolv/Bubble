@@ -7,7 +7,6 @@ import gg.desolve.commons.Commons;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.Plugin;
 
 import java.util.Arrays;
 
@@ -15,13 +14,13 @@ public class CommandManager extends PaperCommandManager {
 
     private final String permission;
 
-    public CommandManager(Plugin plugin, String permission, String location) {
-        super(plugin);
+    public CommandManager(String permission) {
+        super(Commons.getInstance());
         this.permission = permission;
 
         try {
             enableUnstableAPI("help");
-            getLocales().loadYamlLanguageFile(location, Locales.ENGLISH);
+            getLocales().loadYamlLanguageFile("language.yml", Locales.ENGLISH);
         } catch (Exception e) {
             Commons.getInstance().getLogger().warning("An error occurred while initialising commands manager usages.");
             e.printStackTrace();

@@ -1,4 +1,4 @@
-package gg.desolve.commons.command.management;
+package gg.desolve.commons.command.administration;
 
 import co.aikar.commands.BaseCommand;
 import co.aikar.commands.CommandHelp;
