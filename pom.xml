@@ -103,5 +103,10 @@
             <artifactId>adventure-platform-bukkit</artifactId>
             <version>4.3.4</version>
         </dependency>
+        <dependency>
+            <groupId>fr.minuskube.inv</groupId>
+            <artifactId>smart-invs</artifactId>
+            <version>1.2.7</version>
+        </dependency>
     </dependencies>
 </project>
