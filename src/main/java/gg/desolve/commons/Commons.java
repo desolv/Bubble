@@ -67,7 +67,7 @@ public final class Commons extends JavaPlugin {
         instanceManager = new InstanceManager();
         redisManager = new RedisManager(getStorageConfig().getString("redis.url"));
         mongoManager = new MongoManager(getStorageConfig().getString("mongo.url"), getStorageConfig().getString("mongo.database"));
-        instanceManager.create(instanceManager.getInstance());
+        instanceManager.create();
 
         scopeManager = new ScopeManager();
         commandManager = new CommandManager("commons.*");
@@ -82,7 +82,7 @@ public final class Commons extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        instanceManager.remove(instanceManager.getInstance());
+        instanceManager.remove();
         redisManager.close();
         mongoManager.close();
     }

@@ -37,6 +37,9 @@ public class InstanceManager {
         }.runTaskTimer(Commons.getInstance(), 0, 20 * 60);
     }
 
+    public void create() {
+        create(instance);
+    }
 
     public void create(Instance instance) {
         Commons.getInstance().getRedisManager().set("instance:" + instance.getId(), gson.toJson(instance));
@@ -49,6 +52,10 @@ public class InstanceManager {
 
     public void save(Instance instance) {
         Commons.getInstance().getRedisManager().set("instance:" + instance.getId(), gson.toJson(instance), 300);
+    }
+
+    public void remove() {
+        remove(instance);
     }
 
     public void remove(Instance instance) {
