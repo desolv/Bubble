@@ -5,11 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>gg.desolve</groupId>
-    <artifactId>Commons</artifactId>
+    <artifactId>Mithril</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
 
-    <name>Commons</name>
+    <name>Mithril</name>
 
     <properties>
         <java.version>17</java.version>
