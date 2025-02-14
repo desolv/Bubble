@@ -1,8 +1,8 @@
 package gg.desolve.commons.listener;
 
-import gg.desolve.commons.relevance.Converter;
 import gg.desolve.commons.Commons;
 import gg.desolve.commons.reboot.Reboot;
+import gg.desolve.commons.relevance.Converter;
 import gg.desolve.commons.relevance.Message;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
