@@ -1,4 +1,4 @@
-package gg.desolve.mithril.redis.subscribe;
+package gg.desolve.mithril.redis;
 
 import gg.desolve.mithril.Mithril;
 import redis.clients.jedis.JedisPubSub;

@@ -1,7 +1,6 @@
 package gg.desolve.mithril.redis;
 
 import gg.desolve.mithril.Mithril;
-import gg.desolve.mithril.redis.subscribe.BroadcastSubscriber;
 import lombok.Getter;
 import redis.clients.jedis.JedisPubSub;
 
