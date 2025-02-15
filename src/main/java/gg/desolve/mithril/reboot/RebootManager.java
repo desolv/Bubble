@@ -5,6 +5,7 @@ import gg.desolve.mithril.relevance.Converter;
 import lombok.Data;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Data
@@ -30,7 +31,7 @@ public class RebootManager {
 
 
     public void start() {
-        List<String> intervals = Mithril.getInstance().getLanguageConfig().getConfig().getStringList("reboot.reboot_timing");
+        List<String> intervals = Arrays.asList(Mithril.getInstance().getLanguageConfig().getString("reboot.reboot_timing").split(","));
 
         long current = System.currentTimeMillis();
         long target = reboot.getAddedAt() + reboot.getDelay();
