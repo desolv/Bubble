@@ -11,7 +11,6 @@ import gg.desolve.mithril.mongo.MongoManager;
 import gg.desolve.mithril.reboot.RebootManager;
 import gg.desolve.mithril.redis.RedisManager;
 import gg.desolve.mithril.redis.SubscriberDirector;
-import gg.desolve.mithril.scope.ScopeManager;
 import lombok.Getter;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -46,9 +45,6 @@ public final class Mithril extends JavaPlugin {
     public SubscriberDirector subscriberDirector;
 
     @Getter
-    public ScopeManager scopeManager;
-
-    @Getter
     public RebootManager rebootManager;
 
     @Getter
@@ -69,7 +65,6 @@ public final class Mithril extends JavaPlugin {
         mongoManager = new MongoManager(getStorageConfig().getString("mongo.url"), getStorageConfig().getString("mongo.database"));
         instanceManager.create();
 
-        scopeManager = new ScopeManager();
         commandManager = new CommandManager("mithril.*");
         commandDirector = new CommandDirector(commandManager);
         listenerDirector = new ListenerDirector();

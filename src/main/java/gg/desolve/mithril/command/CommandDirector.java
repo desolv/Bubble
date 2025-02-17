@@ -5,18 +5,14 @@ import co.aikar.commands.InvalidCommandArgument;
 import gg.desolve.mithril.Mithril;
 import gg.desolve.mithril.command.administration.RebootCommand;
 import gg.desolve.mithril.command.management.InstanceCommand;
-import gg.desolve.mithril.command.management.ScopeCommand;
 import gg.desolve.mithril.instance.Instance;
 import gg.desolve.mithril.relevance.Duration;
 import gg.desolve.mithril.relevance.Message;
-import gg.desolve.mithril.scope.Scope;
 import lombok.Getter;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Getter
 public class CommandDirector {
@@ -34,7 +30,6 @@ public class CommandDirector {
     private List<BaseCommand> commands() {
         List<BaseCommand> commandList = Arrays.asList(
                 new InstanceCommand(),
-                new ScopeCommand(),
                 new RebootCommand()
         );
 
@@ -43,14 +38,6 @@ public class CommandDirector {
     }
 
     private void contexts() {
-        commandManager.getCommandContexts().registerContext(
-                Scope.class, s -> {
-                    String popName = s.popFirstArg();
-                    Scope scope = Mithril.getInstance().getScopeManager().retrieve(popName);
-                    return Optional.ofNullable(scope).orElseThrow(() ->
-                            new InvalidCommandArgument(Message.translate("<red>Scope matching <yellow>" + popName + " <red>not found."), false));
-                });
-
         commandManager.getCommandContexts().registerContext(
                 Instance.class, i -> {
                     String popName = i.popFirstArg();
@@ -70,12 +57,6 @@ public class CommandDirector {
 
 
     private void completions() {
-        commandManager.getCommandCompletions().registerAsyncCompletion("scopes", s ->
-                Stream.concat(
-                        Stream.of("global"),
-                        Mithril.getInstance().getScopeManager().retrieve().stream().map(Scope::getName)
-                ).collect(Collectors.toList()));
-
         commandManager.getCommandCompletions().registerAsyncCompletion("instances", s ->
                 Mithril.getInstance().getInstanceManager().retrieve().stream().map(Instance::getName).toList());
 
