@@ -23,13 +23,15 @@ public class Message {
     }
 
     public static void send(Player player, String message) {
-        if (message.isEmpty()) return;
+        if (message.isEmpty() || player == null) return;
 
         Mithril.getInstance().getAdventure().player(player)
                 .sendMessage(MiniMessage.miniMessage().deserialize(message.replace("prefix%", prefix)));
     }
 
     public static void send(Player player, String message, String permission) {
+        if (message.isEmpty() || player == null) return;
+
         if ((player.hasPermission(permission) ||
                 Arrays.stream(permission.split("\\|")).anyMatch(player::hasPermission)))
             send(player, message);
