@@ -65,7 +65,7 @@ public final class Mithril extends JavaPlugin {
         mongoManager = new MongoManager(getStorageConfig().getString("mongo.url"), getStorageConfig().getString("mongo.database"));
         instanceManager.create();
 
-        commandManager = new CommandManager("mithril.*");
+        commandManager = new CommandManager(this, "mithril.*");
         commandDirector = new CommandDirector(commandManager);
         listenerDirector = new ListenerDirector();
         subscriberDirector = new SubscriberDirector();

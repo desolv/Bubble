@@ -63,7 +63,7 @@ public class RebootCommand extends BaseCommand {
     @Subcommand("initialise")
     @CommandCompletion("@durations")
     @CommandPermission("mithril.command.reboot|mithril.command.reboot.initialise")
-    @Syntax("<duration>")
+    @Syntax("(duration)")
     @Description("Initialise a new reboot")
     public static void onInitialise(CommandSender sender, Duration duration) {
         if (Mithril.getInstance().getRebootManager().getReboot().isStatus()) {

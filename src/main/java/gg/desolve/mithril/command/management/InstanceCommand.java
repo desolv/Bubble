@@ -37,7 +37,7 @@ public class InstanceCommand extends BaseCommand {
 
     @Subcommand("retrieve")
     @CommandPermission("mithril.command.instance|mithril.command.instance.retrieve")
-    @Description("Retrieve instances on GUI")
+    @Description("Manage instances on GUI")
     public static void onRetrieve(Player player) {
         InstanceInventory.INVENTORY.open(player);
     }

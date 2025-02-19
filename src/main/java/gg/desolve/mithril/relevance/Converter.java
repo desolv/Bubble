@@ -17,6 +17,10 @@ public class Converter {
         return millis / 1000;
     }
 
+    public static long hours(long millis) {
+        return millis / (1000 * 60 * 60);
+    }
+
     public static String time(long millis) {
         millis += 1L;
 
