@@ -31,7 +31,7 @@ public class RebootManager {
 
 
     public void start() {
-        List<String> intervals = Arrays.asList(Mithril.getInstance().getLanguageConfig().getString("reboot.reboot_timing").split(","));
+        List<String> intervals = Arrays.asList(Mithril.getInstance().getLanguageConfig().getString("reboot.reboot_timing").split("\\|"));
 
         long current = System.currentTimeMillis();
         long target = reboot.getAddedAt() + reboot.getDelay();
