@@ -15,6 +15,6 @@ public class Scope {
     public Scope(String scope) {
         this.unformatted = scope;
         scopes = Arrays.asList(unformatted.split("\\|"));
-        format = String.join(", ", unformatted);
+        format = String.join(", ", scopes);
     }
 }
