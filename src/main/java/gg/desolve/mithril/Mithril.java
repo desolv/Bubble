@@ -11,6 +11,7 @@ import gg.desolve.mithril.mongo.MongoManager;
 import gg.desolve.mithril.reboot.RebootManager;
 import gg.desolve.mithril.redis.RedisManager;
 import gg.desolve.mithril.redis.SubscriberDirector;
+import gg.desolve.mithril.relevance.Message;
 import lombok.Getter;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -59,6 +60,8 @@ public final class Mithril extends JavaPlugin {
 
         adventure = BukkitAudiences.create(this);
         configurationManager = new ConfigurationManager(this, "language.yml", "storage.yml");
+
+        Message.setPrefix(getLanguageConfig().getString("server.plugin_prefix"));
 
         instanceManager = new InstanceManager();
         redisManager = new RedisManager(getStorageConfig().getString("redis.url"));
