@@ -17,13 +17,13 @@ public class InstanceManagementInventory implements InventoryProvider {
             .build();
 
     @Override
-    public void init(Player player, InventoryContents inventoryContents) {
-        InstanceInventory.sidebars(player, 1, 1, inventoryContents);
+    public void init(Player player, InventoryContents contents) {
+        InstanceInventory.sidebars(player, 1, 1, contents);
 
 
     }
 
 
     @Override
-    public void update(Player player, InventoryContents inventoryContents) {}
+    public void update(Player player, InventoryContents contents) {}
 }

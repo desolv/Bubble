@@ -30,10 +30,10 @@ public class InstanceListInventory implements InventoryProvider {
             .build();
 
     @Override
-    public void init(Player player, InventoryContents inventoryContents) {
-        InstanceInventory.sidebars(player, 0, 1, inventoryContents);
+    public void init(Player player, InventoryContents contents) {
+        InstanceInventory.sidebars(player, 0, 1, contents);
 
-        Pagination pagination = inventoryContents.pagination();
+        Pagination pagination = contents.pagination();
         List<ClickableItem> instances = new ArrayList<>();
 
         Mithril.getInstance().getInstanceManager().retrieve().forEach(instance -> {
@@ -57,7 +57,7 @@ public class InstanceListInventory implements InventoryProvider {
 
         pagination.setItemsPerPage(7);
         pagination.setItems(instances.toArray(new ClickableItem[0]));
-        pagination.addToIterator(inventoryContents.newIterator(SlotIterator.Type.HORIZONTAL, 1, 2));
+        pagination.addToIterator(contents.newIterator(SlotIterator.Type.HORIZONTAL, 1, 2));
 
         if (!pagination.isFirst()) {
             ItemStack previousButton = Material.getSkull("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmQ2OWUwNmU1ZGFkZmQ4NGU1ZjNkMWMyMTA2M2YyNTUzYjJmYTk0NWVlMWQ0ZDcxNTJmZGM1NDI1YmMxMmE5In19fQ==");
@@ -68,7 +68,7 @@ public class InstanceListInventory implements InventoryProvider {
             ).map(Message::translate).toList());
             previousButton.setItemMeta(previousMeta);
 
-            inventoryContents.set(0, pagination.isLast() ? 8 : 7, ClickableItem.of(
+            contents.set(0, pagination.isLast() ? 8 : 7, ClickableItem.of(
                     previousButton,
                     e -> INVENTORY.open(player, pagination.previous().getPage())
             ));
@@ -83,7 +83,7 @@ public class InstanceListInventory implements InventoryProvider {
             ).map(Message::translate).toList());
             nextButton.setItemMeta(nextMeta);
 
-            inventoryContents.set(0, 8, ClickableItem.of(
+            contents.set(0, 8, ClickableItem.of(
                     nextButton,
                     e -> INVENTORY.open(player, pagination.next().getPage())
             ));
@@ -95,5 +95,5 @@ public class InstanceListInventory implements InventoryProvider {
 
 
     @Override
-    public void update(Player player, InventoryContents inventoryContents) {}
+    public void update(Player player, InventoryContents contents) {}
 }

@@ -28,8 +28,8 @@ public class InstanceInventory implements InventoryProvider {
             .build();
 
     @Override
-    public void init(Player player, InventoryContents inventoryContents) {
-        sidebars(player, -1, -1, inventoryContents);
+    public void init(Player player, InventoryContents contents) {
+        sidebars(player, -1, -1, contents);
         Instance instance = Mithril.getInstance().getInstanceManager().getInstance();
 
         // Instance Information
@@ -37,15 +37,15 @@ public class InstanceInventory implements InventoryProvider {
         ItemMeta instanceMeta = instanceStack.getItemMeta();
         instanceMeta.setDisplayName(Message.translate("<gray>@" + instance.getName() + " <dark_gray>#" + instance.getId()));
         instanceStack.setItemMeta(instanceMeta);
-        inventoryContents.set(1, 4, ClickableItem.empty(instanceStack));
+        contents.set(1, 4, ClickableItem.empty(instanceStack));
 
     }
 
     @Override
-    public void update(Player player, InventoryContents inventoryContents) {
+    public void update(Player player, InventoryContents contents) {
         Instance instance = Mithril.getInstance().getInstanceManager().getInstance();
 
-        ItemStack instanceStack = Objects.requireNonNull(inventoryContents.get(1, 4).orElse(null)).getItem();
+        ItemStack instanceStack = Objects.requireNonNull(contents.get(1, 4).orElse(null)).getItem();
         ItemMeta instanceMeta = instanceStack.getItemMeta();
 
         instanceMeta.setLore(Stream.of(
@@ -56,7 +56,7 @@ public class InstanceInventory implements InventoryProvider {
         ).map(Message::translate).toList());
 
         instanceStack.setItemMeta(instanceMeta);
-        inventoryContents.set(1, 4, ClickableItem.empty(instanceStack));
+        contents.set(1, 4, ClickableItem.empty(instanceStack));
     }
 
     public static void sidebars(Player player, int greenRow, int greenColumn, InventoryContents inventoryContents) {
