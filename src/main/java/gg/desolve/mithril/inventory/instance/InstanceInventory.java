@@ -59,13 +59,13 @@ public class InstanceInventory implements InventoryProvider {
         contents.set(1, 4, ClickableItem.empty(instanceStack));
     }
 
-    public static void sidebars(Player player, int greenRow, int greenColumn, InventoryContents inventoryContents) {
+    public static void sidebars(Player player, int greenRow, int greenColumn, InventoryContents contents) {
         // Aesthetic Gray Pane
         ItemStack glassStack = XMaterial.GRAY_STAINED_GLASS_PANE.parseItem();
         ItemMeta glassMeta = glassStack.getItemMeta();
         glassMeta.setDisplayName(" ");
         glassStack.setItemMeta(glassMeta);
-        inventoryContents.fillColumn(1, ClickableItem.empty(glassStack));
+        contents.fillColumn(1, ClickableItem.empty(glassStack));
 
         // Aesthetic Green Pane
         if (greenRow >= 0) {
@@ -73,7 +73,7 @@ public class InstanceInventory implements InventoryProvider {
             ItemMeta greenMeta = greenStack.getItemMeta();
             greenMeta.setDisplayName(" ");
             greenStack.setItemMeta(greenMeta);
-            inventoryContents.set(greenRow, greenColumn, ClickableItem.empty(greenStack));
+            contents.set(greenRow, greenColumn, ClickableItem.empty(greenStack));
         }
 
         // Instance Showcase
@@ -84,7 +84,7 @@ public class InstanceInventory implements InventoryProvider {
                 "<gray>around the redis instance").map(Message::translate).toList());
         anvilStack.setItemMeta(anvilMeta);
 
-        inventoryContents.set(0, 0, ClickableItem.of(anvilStack, e -> {
+        contents.set(0, 0, ClickableItem.of(anvilStack, e -> {
             if (Mithril.getInstance().getInstanceManager().retrieve().size() <= 1) {
                 ItemStack redStack = XMaterial.RED_STAINED_GLASS_PANE.parseItem();
                 ItemMeta redMeta = redStack.getItemMeta();
@@ -93,9 +93,9 @@ public class InstanceInventory implements InventoryProvider {
                         .map(Message::translate).toList());
                 redStack.setItemMeta(redMeta);
 
-                inventoryContents.set(0, 1, ClickableItem.empty(redStack));
+                contents.set(0, 1, ClickableItem.empty(redStack));
                 Bukkit.getScheduler().runTaskLater(Mithril.getInstance(), () ->
-                        inventoryContents.set(0, 1, ClickableItem.empty(glassStack)), 60L);
+                        contents.set(0, 1, ClickableItem.empty(glassStack)), 60L);
             } else {
                 if (Mithril.getInstance().getInventoryManager().getInventory(player).orElse(null) == InstanceListInventory.INVENTORY)
                     InstanceInventory.INVENTORY.open(player);
@@ -111,7 +111,7 @@ public class InstanceInventory implements InventoryProvider {
                 "<gray>reboots or commands across instances").map(Message::translate).toList());
         blazeStack.setItemMeta(blazeMeta);
 
-        inventoryContents.set(1, 0, ClickableItem.of(blazeStack, e -> {
+        contents.set(1, 0, ClickableItem.of(blazeStack, e -> {
             if (Mithril.getInstance().getInventoryManager().getInventory(player).orElse(null) == InstanceManagementInventory.INVENTORY)
                 InstanceInventory.INVENTORY.open(player);
             else InstanceManagementInventory.INVENTORY.open(player);
