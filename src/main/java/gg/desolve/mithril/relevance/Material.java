@@ -20,4 +20,24 @@ public class Material {
                 .fallback(Profileable.username("Steve"))
                 .apply();
     }
+
+    public static String getWool(String color) {
+        return switch (color.toLowerCase()) {
+            case "<dark_red>" -> "RED";
+            case "<red>" -> "RED";
+            case "<gold>", "yellow" -> "YELLOW";
+            case "<dark_green>" -> "GREEN";
+            case "<green>" -> "LIME";
+            case "<aqua>", "dark_aqua" -> "CYAN";
+            case "<blue>" -> "BLUE";
+            case "<dark_blue>" -> "BLUE";
+            case "<light_purple>" -> "MAGENTA";
+            case "<dark_purple>" -> "PURPLE";
+            case "<white>" -> "WHITE";
+            case "<gray>" -> "LIGHT_GRAY";
+            case "<dark_gray>" -> "GRAY";
+            case "<black>" -> "BLACK";
+            default -> "WHITE";
+        };
+    }
 }
