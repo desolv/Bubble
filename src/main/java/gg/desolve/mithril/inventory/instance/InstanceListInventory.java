@@ -60,31 +60,31 @@ public class InstanceListInventory implements InventoryProvider {
         pagination.addToIterator(contents.newIterator(SlotIterator.Type.HORIZONTAL, 1, 2));
 
         if (!pagination.isFirst()) {
-            ItemStack previousButton = Material.getSkull("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmQ2OWUwNmU1ZGFkZmQ4NGU1ZjNkMWMyMTA2M2YyNTUzYjJmYTk0NWVlMWQ0ZDcxNTJmZGM1NDI1YmMxMmE5In19fQ==");
-            ItemMeta previousMeta = previousButton.getItemMeta();
+            ItemStack previousStack = Material.getSkull("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmQ2OWUwNmU1ZGFkZmQ4NGU1ZjNkMWMyMTA2M2YyNTUzYjJmYTk0NWVlMWQ0ZDcxNTJmZGM1NDI1YmMxMmE5In19fQ==");
+            ItemMeta previousMeta = previousStack.getItemMeta();
             previousMeta.setDisplayName(Message.translate("<yellow>Previous Page"));
             previousMeta.setLore(Stream.of(
                     "<gray>Click to go to the previous page"
             ).map(Message::translate).toList());
-            previousButton.setItemMeta(previousMeta);
+            previousStack.setItemMeta(previousMeta);
 
             contents.set(0, pagination.isLast() ? 8 : 7, ClickableItem.of(
-                    previousButton,
+                    previousStack,
                     e -> INVENTORY.open(player, pagination.previous().getPage())
             ));
         }
 
         if (!pagination.isLast()) {
-            ItemStack nextButton = Material.getSkull("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTliZjMyOTJlMTI2YTEwNWI1NGViYTcxM2FhMWIxNTJkNTQxYTFkODkzODgyOWM1NjM2NGQxNzhlZDIyYmYifX19");
-            ItemMeta nextMeta = nextButton.getItemMeta();
+            ItemStack nextStack = Material.getSkull("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTliZjMyOTJlMTI2YTEwNWI1NGViYTcxM2FhMWIxNTJkNTQxYTFkODkzODgyOWM1NjM2NGQxNzhlZDIyYmYifX19");
+            ItemMeta nextMeta = nextStack.getItemMeta();
             nextMeta.setDisplayName(Message.translate("<yellow>Next Page"));
             nextMeta.setLore(Stream.of(
                     "<gray>Click to go to the next page"
             ).map(Message::translate).toList());
-            nextButton.setItemMeta(nextMeta);
+            nextStack.setItemMeta(nextMeta);
 
             contents.set(0, 8, ClickableItem.of(
-                    nextButton,
+                    nextStack,
                     e -> INVENTORY.open(player, pagination.next().getPage())
             ));
         }
