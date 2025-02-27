@@ -63,10 +63,9 @@ public final class Mithril extends JavaPlugin {
 
         Message.setPrefix(getLanguageConfig().getString("server.plugin_prefix"));
 
-        instanceManager = new InstanceManager();
         redisManager = new RedisManager(getStorageConfig().getString("redis.url"));
         mongoManager = new MongoManager(getStorageConfig().getString("mongo.url"), getStorageConfig().getString("mongo.database"));
-        instanceManager.create();
+        instanceManager = new InstanceManager();
 
         commandManager = new CommandManager(this, "mithril.*");
         commandDirector = new CommandDirector(commandManager);

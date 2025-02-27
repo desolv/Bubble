@@ -17,6 +17,8 @@ public class RedisManager {
 
     public RedisManager(String url) {
         try {
+            long now = System.currentTimeMillis();
+
             JedisPoolConfig poolConfig = new JedisPoolConfig();
             poolConfig.setMaxTotal(30);
             poolConfig.setMaxIdle(15);
@@ -24,7 +26,7 @@ public class RedisManager {
 
             jedisPool = new JedisPool(poolConfig, url);
 
-            String timing = String.valueOf(System.currentTimeMillis() - Mithril.getInstance().getInstanceManager().getInstance().getBooting());
+            String timing = String.valueOf(System.currentTimeMillis() - now);
             Mithril.getInstance().getLogger().info("Merged Redis @ " + timing + "ms.");
         } catch (Exception e) {
             Mithril.getInstance().getLogger().warning("There was a problem connecting to Redis.");

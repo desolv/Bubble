@@ -17,6 +17,8 @@ public class MongoManager {
 
     public MongoManager(String url, String database) {
         try {
+            long now = System.currentTimeMillis();
+
             MongoClientSettings mongoSettings = MongoClientSettings.builder()
                     .applyConnectionString(new ConnectionString(url))
                     .uuidRepresentation(UuidRepresentation.STANDARD)
@@ -25,7 +27,7 @@ public class MongoManager {
             mongoClient = MongoClients.create(mongoSettings);
             mongoDatabase = mongoClient.getDatabase(database);
 
-            String timing = String.valueOf(System.currentTimeMillis() - Mithril.getInstance().getInstanceManager().getInstance().getBooting());
+            String timing = String.valueOf(System.currentTimeMillis() - now);
             Mithril.getInstance().getLogger().info("Merged Mongo @ " + timing + "ms.");
         } catch (Exception e) {
             Mithril.getInstance().getLogger().warning("There was a problem connecting to MongoDB.");

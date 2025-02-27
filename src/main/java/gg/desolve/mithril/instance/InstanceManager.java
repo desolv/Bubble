@@ -35,9 +35,7 @@ public class InstanceManager {
                 save(instance);
             }
         }.runTaskTimer(Mithril.getInstance(), 0, 20 * 60);
-    }
 
-    public void create() {
         create(instance);
     }
 
