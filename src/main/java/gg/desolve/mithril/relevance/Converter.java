@@ -56,7 +56,7 @@ public class Converter {
 
     public static long duration(String duration) {
         if (duration.equalsIgnoreCase("perm") || duration.equalsIgnoreCase("permanent")) {
-            return Long.MAX_VALUE;
+            return Integer.MAX_VALUE;
         }
 
         long time = 0L;
