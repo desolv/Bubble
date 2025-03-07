@@ -1,5 +1,8 @@
 package gg.desolve.mithril.relevance;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -94,4 +97,9 @@ public class Converter {
         return time == 0 ? -1 : time * 1000;
     }
 
+    public static String date(long millis) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        sdf.setTimeZone(TimeZone.getTimeZone("Europe/London"));
+        return sdf.format(new Date(millis));
+    }
 }
