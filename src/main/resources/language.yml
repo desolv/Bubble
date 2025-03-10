@@ -1,23 +1,34 @@
 server:
-  server_name: "lobby"
-  server_display: "Desolve"
-  plugin_prefix: "<aqua><bold>Mithril <gray>»</bold>&a"
+  name: "lobby"
+  display: "Desolve"
+  prefix: "<aqua><bold>Mithril <gray>»</bold>&a"
   welcome_motd: "<newline><white><bold>Welcome to </bold><aqua>server%<white><bold>!</bold><newline><gray>Sample text right here...<newline>"
-  durations: "10s|30s|1m|5m|30m|1h|4h|1d|1w|1M"
-
-instance:
-  instance_create: "<green>* A new instance @server% <dark_gray>id% <green>has been initialised."
-  instance_remove: "<red>* The instance @server% <dark_gray>id% <red>has been removed."
-  welcome_instance_lifespan: "<gray>Instance has been online for time%."
-  welcome_instance_schedule: "<green>Instance scheduled to reboot in time%."
-  welcome_instance_not_schedule: "<red>Instance is not scheduled to reboot."
+  duration_timing: "10s|30s|1m|5m|30m|1h|4h|1d|1w|1M"
 
 reboot:
-  reboot_time: "24h"
-  reboot_timing: "1h|30m|10m|5m|1m|30s|10s|5s|4s|3s|2s|1s"
-  reboot_message: "<red>* Instance will be rebooting in remaining%."
-  reboot_create: "prefix% <green>A new reboot as been initialised on @server%."
-  reboot_remove: "prefix% <red>Reboot for @server% has been removed."
+  scheduled: "24h"
+  timing: "1h|30m|10m|5m|1m|30s|10s|5s|4s|3s|2s|1s"
+  message: "<red>* Instance will be rebooting in remaining%."
+  create: "prefix% <green>A new reboot as been initialised on @server%."
+  remove: "prefix% <red>Reboot for @server% has been removed."
+
+reboot-command:
+  status:
+    scheduled: "prefix% <green>A reboot is scheduled to initialise <gray>in remaining%."
+    unscheduled: "prefix% <red>A reboot is not scheduled it was removed <gray>by username%."
+  invalidate:
+    unscheduled: "prefix% <red>No reboot is running momentarily."
+    removed: "prefix% <green>Removed current reboot."
+  initialise:
+    scheduled: "prefix% <red>A reboot is currently initialised, remove it before initialising a new one."
+    created: "prefix% <green>Initialised a new reboot <gray>for remaining%."
+
+instance:
+  create: "<green>* A new instance @server% <dark_gray>id% <green>has been initialised."
+  remove: "<red>* The instance @server% <dark_gray>id% <red>has been removed."
+  welcome_lifespan: "<gray>Instance has been online for time%."
+  welcome_scheduled: "<green>Instance scheduled to reboot in time%."
+  welcome_unscheduled: "<red>Instance is not scheduled to reboot."
   
 acf-core:
   invalid_syntax: "&bUsage: &a{command} &f{syntax}"

@@ -14,7 +14,7 @@ public class RebootManager {
     public Reboot reboot;
 
     public RebootManager() {
-        String rebootTime = Mithril.getInstance().getLanguageConfig().getString("reboot.reboot_time");
+        String rebootTime = Mithril.getInstance().getLanguageConfig().getString("reboot.scheduled");
         long duration = Converter.duration(rebootTime);
 
         reboot = new Reboot(
@@ -31,7 +31,7 @@ public class RebootManager {
 
 
     public void start() {
-        List<String> intervals = Arrays.asList(Mithril.getInstance().getLanguageConfig().getString("reboot.reboot_timing").split("\\|"));
+        List<String> intervals = Arrays.asList(Mithril.getInstance().getLanguageConfig().getString("reboot.timing").split("\\|"));
 
         long current = System.currentTimeMillis();
         long target = reboot.getAddedAt() + reboot.getDelay();
@@ -45,7 +45,7 @@ public class RebootManager {
                 });
 
         Mithril.getInstance().getInstanceManager().broadcast(
-                Mithril.getInstance().getLanguageConfig().getString("reboot.reboot_create")
+                Mithril.getInstance().getLanguageConfig().getString("reboot.create")
                         .replace("server%", Mithril.getInstance().getInstanceManager().getInstance().getName())
                         + "&%$mithril.*|mithril.admin");
     }
@@ -59,7 +59,7 @@ public class RebootManager {
                         if (reboot.getDelay() <= 0L) return;
 
                         Mithril.getInstance().getInstanceManager().getInstance().announce(
-                                Mithril.getInstance().getLanguageConfig().getString("reboot.reboot_message")
+                                Mithril.getInstance().getLanguageConfig().getString("reboot.message")
                                         .replace("remaining%", Converter.time(interval)));
 
                         if (interval == Converter.duration("1s"))
@@ -75,8 +75,7 @@ public class RebootManager {
         reboot.getTask().cancel();
 
         Mithril.getInstance().getInstanceManager().broadcast(
-                Mithril.getInstance().getLanguageConfig().getString("reboot.reboot_remove")
-                        .replace("server%", Mithril.getInstance().getInstanceManager().getInstance().getName())
+                Mithril.getInstance().getLanguageConfig().getString("reboot.remove").replace("server%", Mithril.getInstance().getInstanceManager().getInstance().getName())
                         + "&%$mithril.*|mithril.admin");
     }
 }

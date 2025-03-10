@@ -24,17 +24,18 @@ public class PlayerListener implements Listener {
         Reboot reboot = Mithril.getInstance().getRebootManager().getReboot();
 
         Message.send(player, Mithril.getInstance().getLanguageConfig().getString("server.welcome_motd")
-                .replace("server%", Mithril.getInstance().getLanguageConfig().getString("server.server_display")));
+                .replace("server%", Mithril.getInstance().getLanguageConfig().getString("server.display")));
 
-        Message.send(player, Mithril.getInstance().getLanguageConfig().getString("instance.welcome_instance_lifespan")
+        Message.send(player, Mithril.getInstance().getLanguageConfig().getString("instance.welcome_lifespan")
                 .replace("time%", Converter.time(System.currentTimeMillis() - Mithril.getInstance().getInstanceManager().getInstance().getBooting())),
-                "mithril.admin");
+                "mithril.*|mithril.admin");
 
         if (reboot.isStatus())
-            Message.send(player, Mithril.getInstance().getLanguageConfig().getString("instance.welcome_instance_schedule")
-                            .replace("time%", Converter.time(reboot.getAddedAt() + reboot.getDelay() - System.currentTimeMillis())),
-                    "mithril.admin");
-        else Message.send(player, Mithril.getInstance().getLanguageConfig().getString("instance.welcome_instance_not_schedule"));
+            Message.send(player, Mithril.getInstance().getLanguageConfig().getString("instance.welcome_scheduled")
+                            .replace("time%",
+                                    Converter.time(reboot.getAddedAt() + reboot.getDelay() - System.currentTimeMillis())),
+                    "mithril.*|mithril.admin");
+        else Message.send(player, Mithril.getInstance().getLanguageConfig().getString("instance.welcome_unscheduled"));
     }
 
     @EventHandler(

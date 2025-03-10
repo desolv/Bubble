@@ -28,7 +28,7 @@ public class InstanceCommand extends BaseCommand {
     public static void onSimple(CommandSender sender) {
         Instance instance = Mithril.getInstance().getInstanceManager().getInstance();
         Message.send(sender,
-                "<newline><aqua><bold>@" + Mithril.getInstance().getLanguageConfig().getString("server.server_name") + "'s Instance information</bold>" +
+                "<newline><aqua><bold>@" + Mithril.getInstance().getLanguageConfig().getString("server.name") + "'s Instance information</bold>" +
                 "<newline><white>Id: <dark_gray>" + instance.getId() +
                 "<newline><white>Version: <aqua>" + instance.getVersion() +
                 "<newline><white>Booted: <aqua>" + Converter.time(System.currentTimeMillis() - instance.getBooting()) + " ago" +

@@ -61,7 +61,7 @@ public final class Mithril extends JavaPlugin {
         adventure = BukkitAudiences.create(this);
         configurationManager = new ConfigurationManager(this, "language.yml", "storage.yml");
 
-        Message.setPrefix(getLanguageConfig().getString("server.plugin_prefix"));
+        Message.setPrefix(getLanguageConfig().getString("server.prefix"));
 
         redisManager = new RedisManager(getStorageConfig().getString("redis.url"));
         mongoManager = new MongoManager(getStorageConfig().getString("mongo.url"), getStorageConfig().getString("mongo.database"));

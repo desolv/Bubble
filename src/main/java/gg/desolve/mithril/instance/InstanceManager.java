@@ -18,7 +18,7 @@ public class InstanceManager {
     public InstanceManager() {
         instance = new Instance(
                 Converter.generateId(),
-                Mithril.getInstance().getLanguageConfig().getString("server.server_name"),
+                Mithril.getInstance().getLanguageConfig().getString("server.name"),
                 Mithril.getInstance().getServer().getVersion(),
                 0,
                 System.currentTimeMillis(),
@@ -43,7 +43,7 @@ public class InstanceManager {
         Mithril.getInstance().getRedisManager().set("instance:" + instance.getId(), gson.toJson(instance));
         Mithril.getInstance().getLogger().info("New instance @ " + instance.getName() + " #" + instance.getId() + ".");
 
-        broadcast(Mithril.getInstance().getLanguageConfig().getString("instance.instance_create")
+        broadcast(Mithril.getInstance().getLanguageConfig().getString("instance.create")
                 .replace("server%", instance.getName())
                 .replace("id%", instance.getId()) + "&%$mithril.*|mithril.admin");
     }
@@ -60,7 +60,7 @@ public class InstanceManager {
         Mithril.getInstance().getRedisManager().remove("instance:" + instance.getId());
         Mithril.getInstance().getLogger().info("Removed instance @ " + instance.getName() + " #" + instance.getId() + ".");
 
-        broadcast(Mithril.getInstance().getLanguageConfig().getString("instance.instance_remove")
+        broadcast(Mithril.getInstance().getLanguageConfig().getString("instance.remove")
                 .replace("server%", instance.getName())
                 .replace("id%", instance.getId()) + "&%$mithril.*|mithril.admin");
     }
