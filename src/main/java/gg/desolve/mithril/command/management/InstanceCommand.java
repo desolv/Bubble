@@ -31,7 +31,7 @@ public class InstanceCommand extends BaseCommand {
                 "<newline><aqua><bold>@" + Mithril.getInstance().getLanguageConfig().getString("server.server_name") + "'s Instance information</bold>" +
                 "<newline><white>Id: <dark_gray>" + instance.getId() +
                 "<newline><white>Version: <aqua>" + instance.getVersion() +
-                "<newline><white>Booting: <aqua>" + Converter.time(System.currentTimeMillis() - instance.getBooting()) +
+                "<newline><white>Booted: <aqua>" + Converter.time(System.currentTimeMillis() - instance.getBooting()) + " ago" +
                 "<newline><white>Online: <aqua>" + (instance.getOnline() <= 0 ? "<red>None" : instance.getOnline()) );
     }
 

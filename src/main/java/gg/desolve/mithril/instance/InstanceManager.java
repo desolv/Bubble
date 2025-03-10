@@ -66,13 +66,11 @@ public class InstanceManager {
     }
 
     public Instance retrieve(String instanceId) {
-        return Mithril.getInstance().getRedisManager().keys("instance:*")
-                .stream()
-                .map(i -> gson.fromJson(i, Instance.class))
-                .filter(instance -> (instance.getId().equals(instanceId) || instance.getName().equals(instanceId))
-                        && Converter.seconds(System.currentTimeMillis() - instance.getHeartbeat()) < 65)
-                .findFirst()
-                .orElse(null);
+        String json = Mithril.getInstance().getRedisManager().get("instance:" + instanceId);
+        if (json == null) return null;
+
+        Instance instance = gson.fromJson(json, Instance.class);
+        return (Converter.seconds(System.currentTimeMillis() - instance.getHeartbeat()) < 65) ? instance : null;
     }
 
     public List<Instance> retrieve() {
