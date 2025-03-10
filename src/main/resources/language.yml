@@ -1,7 +1,7 @@
 server:
   server_name: "lobby"
   server_display: "Desolve"
-  plugin_prefix: "<aqua><bold>Mithril <gray>»</bold>&a "
+  plugin_prefix: "<aqua><bold>Mithril <gray>»</bold>&a"
   welcome_motd: "<newline><white><bold>Welcome to </bold><aqua>server%<white><bold>!</bold><newline><gray>Sample text right here...<newline>"
   durations: "10s|30s|1m|5m|30m|1h|4h|1d|1w|1M"
 
