@@ -31,13 +31,13 @@ public class RebootCommand extends BaseCommand {
         Reboot reboot = Mithril.getInstance().getRebootManager().getReboot();
 
         if (reboot.isStatus()) {
-            Message.send(sender, languageConfig.getString("reboot-command.status.scheduled")
+            Message.send(sender, "prefix% <green>A reboot is scheduled to initialise <gray>in remaining%."
                     .replace("remaining%",
                             Converter.time((reboot.getAddedAt() + reboot.getDelay()) - System.currentTimeMillis())));
             return;
         }
 
-        Message.send(sender, languageConfig.getString("reboot-command.status.unscheduled")
+        Message.send(sender, "prefix% <red>A reboot is not scheduled it was removed <gray>by username%."
                         .replace("username%", reboot.getRemovedBy() != null ? String.valueOf(reboot.getRemovedBy()) : "Console" + "."));
     }
 
@@ -48,7 +48,7 @@ public class RebootCommand extends BaseCommand {
         Config languageConfig = Mithril.getInstance().getLanguageConfig();
 
         if (!Mithril.getInstance().getRebootManager().getReboot().isStatus()) {
-            Message.send(sender, languageConfig.getString("reboot-command.invalidate.unscheduled"));
+            Message.send(sender, "prefix% <red>No reboot is running momentarily.");
             return;
         }
 
@@ -63,7 +63,7 @@ public class RebootCommand extends BaseCommand {
                         false
                 ));
 
-        Message.send(sender, languageConfig.getString("reboot-command.invalidate.removed"));
+        Message.send(sender, "prefix% <green>Removed current reboot.");
     }
 
     @Subcommand("initialise")
@@ -75,7 +75,7 @@ public class RebootCommand extends BaseCommand {
         Config languageConfig = Mithril.getInstance().getLanguageConfig();
 
         if (Mithril.getInstance().getRebootManager().getReboot().isStatus()) {
-            Message.send(sender, languageConfig.getString("reboot-command.initialise.scheduled"));
+            Message.send(sender, "prefix% <red>A reboot is currently initialised, remove it before initialising a new one.");
             return;
         }
 
@@ -91,7 +91,7 @@ public class RebootCommand extends BaseCommand {
         Mithril.getInstance().getRebootManager().setReboot(reboot);
         Mithril.getInstance().getRebootManager().start();
 
-        Message.send(sender, languageConfig.getString("reboot-command.initialise.created")
+        Message.send(sender, "prefix% <green>Initialised a new reboot <gray>for remaining%."
                 .replace("remaining%",
                         Converter.time((reboot.getAddedAt() + reboot.getDelay()) - System.currentTimeMillis())));
 

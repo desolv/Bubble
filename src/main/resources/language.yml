@@ -3,7 +3,7 @@ server:
   display: "Desolve"
   prefix: "<aqua><bold>Mithril <gray>»</bold>&a"
   welcome_motd: "<newline><white><bold>Welcome to </bold><aqua>server%<white><bold>!</bold><newline><gray>Sample text right here...<newline>"
-  duration_timing: "10s|30s|1m|5m|30m|1h|4h|1d|1w|1M"
+  timing: "10s|30s|1m|5m|30m|1h|4h|1d|1w|1M"
 
 reboot:
   scheduled: "24h"
@@ -11,17 +11,6 @@ reboot:
   message: "<red>* Instance will be rebooting in remaining%."
   create: "prefix% <green>A new reboot as been initialised on @server%."
   remove: "prefix% <red>Reboot for @server% has been removed."
-
-reboot-command:
-  status:
-    scheduled: "prefix% <green>A reboot is scheduled to initialise <gray>in remaining%."
-    unscheduled: "prefix% <red>A reboot is not scheduled it was removed <gray>by username%."
-  invalidate:
-    unscheduled: "prefix% <red>No reboot is running momentarily."
-    removed: "prefix% <green>Removed current reboot."
-  initialise:
-    scheduled: "prefix% <red>A reboot is currently initialised, remove it before initialising a new one."
-    created: "prefix% <green>Initialised a new reboot <gray>for remaining%."
 
 instance:
   create: "<green>* A new instance @server% <dark_gray>id% <green>has been initialised."
