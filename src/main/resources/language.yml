@@ -1,7 +1,7 @@
 server:
   name: "lobby"
   display: "Desolve"
-  prefix: "<aqua><bold>Mithril <gray>»</bold>&a"
+  prefix: "<aqua><bold>Bubble <gray>»</bold>&a"
   welcome_motd: "<newline><white><bold>Welcome to </bold><aqua>server%<white><bold>!</bold><newline><gray>Sample text right here...<newline>"
   timing: "10s|30s|1m|5m|30m|1h|4h|1d|7d"
 
