@@ -103,21 +103,5 @@
             <artifactId>adventure-platform-bukkit</artifactId>
             <version>4.3.4</version>
         </dependency>
-        <dependency>
-            <groupId>fr.minuskube.inv</groupId>
-            <artifactId>smart-invs</artifactId>
-            <version>1.2.7</version>
-        </dependency>
-        <dependency>
-            <groupId>com.github.cryptomorin</groupId>
-            <artifactId>XSeries</artifactId>
-            <version>11.3.0</version>
-        </dependency>
-        <dependency>
-            <groupId>com.mojang</groupId>
-            <artifactId>authlib</artifactId>
-            <version>1.5.25</version>
-            <scope>provided</scope>
-        </dependency>
     </dependencies>
 </project>

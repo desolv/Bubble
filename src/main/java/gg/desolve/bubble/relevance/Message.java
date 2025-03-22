@@ -1,7 +1,6 @@
 package gg.desolve.bubble.relevance;
 
 import gg.desolve.bubble.Bubble;
-import lombok.Getter;
 import lombok.Setter;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
@@ -13,9 +12,8 @@ import java.util.Arrays;
 
 public class Message {
 
-    @Getter
     @Setter
-    private static String prefix = "Unknown";
+    private static String badge;
 
     public static String translate(String message) {
         return ChatColor.translateAlternateColorCodes('&',
@@ -28,7 +26,7 @@ public class Message {
         if (message.isEmpty() || player == null) return;
 
         Bubble.getInstance().getAdventure().player(player)
-                .sendMessage(MiniMessage.miniMessage().deserialize(message.replace("prefix%", prefix)));
+                .sendMessage(MiniMessage.miniMessage().deserialize(message.replace("badge%", badge)));
     }
 
     public static void send(Player player, String message, String permission) {

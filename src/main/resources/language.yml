@@ -1,24 +1,6 @@
 server:
-  name: "lobby"
-  display: "Desolve"
-  prefix: "<aqua><bold>Bubble <gray>»</bold>&a"
-  welcome_motd: "<newline><white><bold>Welcome to </bold><aqua>server%<white><bold>!</bold><newline><gray>Sample text right here...<newline>"
-  timing: "10s|30s|1m|5m|30m|1h|4h|1d|7d"
+  badge: "<aqua><bold>Bubble <gray>»</bold><white>"
 
-reboot:
-  scheduled: "24h"
-  timing: "1h|30m|10m|5m|1m|30s|10s|5s|4s|3s|2s|1s"
-  message: "<red>* Instance will be rebooting in remaining%."
-  create: "prefix% <green>A new reboot as been initialised on @server%."
-  remove: "prefix% <red>Reboot for @server% has been removed."
-
-instance:
-  create: "<green>* A new instance @server% <dark_gray>id% <green>has been initialised."
-  remove: "<red>* The instance @server% <dark_gray>id% <red>has been removed."
-  welcome_lifespan: "<gray>Instance has been online for time%."
-  welcome_scheduled: "<green>Instance scheduled to reboot in time%."
-  welcome_unscheduled: "<red>Instance is not scheduled to reboot."
-  
 acf-core:
   invalid_syntax: "&bUsage: &a{command} &f{syntax}"
   help_page_information: "- Showing page &f{page} of &f{totalpages} (&a{results} results)."
