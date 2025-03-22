@@ -4,9 +4,11 @@ import com.mongodb.ConnectionString;
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import gg.desolve.bubble.Bubble;
 import lombok.Data;
+import org.bson.Document;
 import org.bson.UuidRepresentation;
 
 @Data
@@ -17,7 +19,7 @@ public class MongoManager {
 
     public MongoManager(String url, String database) {
         try {
-            long now = System.currentTimeMillis();
+            long start = System.currentTimeMillis();
 
             MongoClientSettings mongoSettings = MongoClientSettings.builder()
                     .applyConnectionString(new ConnectionString(url))
@@ -27,12 +29,15 @@ public class MongoManager {
             mongoClient = MongoClients.create(mongoSettings);
             mongoDatabase = mongoClient.getDatabase(database);
 
-            String timing = String.valueOf(System.currentTimeMillis() - now);
-            Bubble.getInstance().getLogger().info("Merged Mongo @ " + timing + "ms.");
+            Bubble.getInstance().getLogger().info("Connected to MongoDB in " + (System.currentTimeMillis() - start) + "ms.");
         } catch (Exception e) {
             Bubble.getInstance().getLogger().warning("There was a problem connecting to MongoDB.");
             e.printStackTrace();
         }
+    }
+
+    public MongoCollection<Document> getCollection(String name) {
+        return mongoDatabase.getCollection(name);
     }
 
     public void close() {

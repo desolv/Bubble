@@ -1,33 +1,36 @@
 package gg.desolve.bubble.redis;
 
 import gg.desolve.bubble.Bubble;
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.JedisPoolConfig;
-import redis.clients.jedis.JedisPubSub;
+import lombok.Getter;
+import redis.clients.jedis.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 public class RedisManager {
 
-    private JedisPool jedisPool;
+    @Getter
+    private static JedisPool pools;
+    private static final ExecutorService executors = Executors.newSingleThreadExecutor();
 
-    public RedisManager(String url) {
+    public RedisManager(String host) {
         try {
-            long now = System.currentTimeMillis();
+            long start = System.currentTimeMillis();
 
-            JedisPoolConfig poolConfig = new JedisPoolConfig();
-            poolConfig.setMaxTotal(30);
-            poolConfig.setMaxIdle(15);
-            poolConfig.setBlockWhenExhausted(true);
+            JedisPoolConfig config = new JedisPoolConfig();
+            config.setMaxTotal(50);
+            config.setMaxIdle(25);
+            config.setMinIdle(5);
+            config.setTestOnBorrow(true);
 
-            jedisPool = new JedisPool(poolConfig, url);
+            pools = new JedisPool(config, host);
 
-            String timing = String.valueOf(System.currentTimeMillis() - now);
-            Bubble.getInstance().getLogger().info("Merged Redis @ " + timing + "ms.");
+            Bubble.getInstance().getLogger().info("Connected to Redis in " + (System.currentTimeMillis() - start) + "ms.");
         } catch (Exception e) {
             Bubble.getInstance().getLogger().warning("There was a problem connecting to Redis.");
             e.printStackTrace();
@@ -35,7 +38,7 @@ public class RedisManager {
     }
 
     public String get(String key) {
-        try (Jedis jedis = jedisPool.getResource()) {
+        try (Jedis jedis = pools.getResource()) {
             return jedis.get(key);
         } catch (Exception e) {
             Bubble.getInstance().getLogger().warning("An error occurred while retrieving " + key + ".");
@@ -45,7 +48,7 @@ public class RedisManager {
     }
 
     public Collection<String> keys(String key) {
-        try (Jedis jedis = jedisPool.getResource()) {
+        try (Jedis jedis = pools.getResource()) {
             return jedis.keys(key).stream()
                     .map(jedis::get)
                     .filter(Objects::nonNull)
@@ -58,7 +61,7 @@ public class RedisManager {
     }
 
     public void set(String key, String content) {
-        try (Jedis jedis = jedisPool.getResource()) {
+        try (Jedis jedis = pools.getResource()) {
             jedis.set(key, content);
         } catch (Exception e) {
             Bubble.getInstance().getLogger().warning("An error occurred while setting " + key + ".");
@@ -67,7 +70,7 @@ public class RedisManager {
     }
 
     public void set(String key, String content, long expire) {
-        try (Jedis jedis = jedisPool.getResource()) {
+        try (Jedis jedis = pools.getResource()) {
             jedis.set(key, content);
             jedis.expire(key, expire);
         } catch (Exception e) {
@@ -77,7 +80,7 @@ public class RedisManager {
     }
 
     public void remove(String key) {
-        try (Jedis jedis = jedisPool.getResource()) {
+        try (Jedis jedis = pools.getResource()) {
             jedis.del(key);
         } catch (Exception e) {
             Bubble.getInstance().getLogger().warning("An error occurred while removing " + key + ".");
@@ -86,7 +89,7 @@ public class RedisManager {
     }
 
     public void publish(String key, String content) {
-        try (Jedis jedis = jedisPool.getResource()) {
+        try (Jedis jedis = pools.getResource()) {
             jedis.publish(key, content);
         } catch (Exception e) {
             Bubble.getInstance().getLogger().warning("An error occurred while publishing " + key + ".");
@@ -94,19 +97,30 @@ public class RedisManager {
         }
     }
 
-    public void subscribe(JedisPubSub subscriber, String key) {
-        new Thread(() -> {
-            try (Jedis jedis = jedisPool.getResource()) {
-                jedis.subscribe(subscriber, key);
+    public static void subscribe(JedisPubSub listener, String channel) {
+        executors.execute(() -> {
+            try (Jedis jedis = pools.getResource()) {
+                jedis.subscribe(listener, channel);
             } catch (Exception e) {
-                Bubble.getInstance().getLogger().warning("An error occurred while subscribing " + key + ".");
+                Bubble.getInstance().getLogger().warning("An error occurred while subscribing on " + channel + ".");
                 e.printStackTrace();
             }
-        }).start();
+        });
+    }
+
+    public static void pipelineWrite(Map<String, String> dataMap) {
+        try (Jedis jedis = pools.getResource()) {
+            Pipeline pipeline = jedis.pipelined();
+            dataMap.forEach(pipeline::set);
+            pipeline.sync();
+        } catch (Exception e) {
+            Bubble.getInstance().getLogger().warning("An error occurred while pipelining.");
+            e.printStackTrace();
+        }
     }
 
     public void flush() {
-        try (Jedis jedis = jedisPool.getResource()) {
+        try (Jedis jedis = pools.getResource()) {
             jedis.flushAll();
             Bubble.getInstance().getLogger().info("Redis data has been flushed.");
         } catch (Exception e) {
@@ -115,7 +129,8 @@ public class RedisManager {
         }
     }
 
-    public void close() {
-        jedisPool.getResource().close();
+    public static void close() {
+        pools.close();
+        executors.shutdown();
     }
 }
