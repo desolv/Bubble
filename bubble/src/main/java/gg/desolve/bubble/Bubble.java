@@ -1,14 +1,16 @@
 package gg.desolve.bubble;
 
+import gg.desolve.bubble.toolkit.Logger;
 import lombok.Getter;
+import lombok.Setter;
 
-@Getter
 public class Bubble {
 
-    private static Bubble instance;
+    @Getter
+    @Setter
+    public static Logger logger;
 
     public Bubble() {
-        instance = this;
+        logger = new Logger();
     }
-
 }

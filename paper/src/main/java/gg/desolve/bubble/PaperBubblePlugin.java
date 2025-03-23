@@ -8,7 +8,10 @@ public class PaperBubblePlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        long start = System.currentTimeMillis();
         new Bubble();
-        getLogger().info("Bubble initialized for Paper!");
+
+        long end = System.currentTimeMillis() - start;
+        Bubble.getLogger().info("Hooked bubble with paper in " + end + "ms.");
     }
 }
