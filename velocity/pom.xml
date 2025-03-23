@@ -41,7 +41,7 @@
         </dependency>
         <dependency>
             <groupId>gg.desolve</groupId>
-            <artifactId>api</artifactId>
+            <artifactId>bubble</artifactId>
             <version>1.0</version>
         </dependency>
     </dependencies>
