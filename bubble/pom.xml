@@ -9,9 +9,9 @@
         <version>1.0</version>
     </parent>
 
-    <artifactId>bubble</artifactId>
+    <artifactId>api</artifactId>
     <packaging>jar</packaging>
-    <name>Bubble</name>
+    <name>API</name>
 
     <properties>
         <java.version>17</java.version>
