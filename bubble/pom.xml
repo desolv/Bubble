@@ -46,7 +46,7 @@
         </plugins>
         <resources>
             <resource>
-                <directory>api/src/main/resources</directory>
+                <directory>bubble/src/main/resources</directory>
                 <filtering>true</filtering>
             </resource>
         </resources>
