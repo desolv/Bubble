@@ -1,9 +1,7 @@
 package gg.desolve.bubble;
 
-import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
 
-@Getter
 public class PaperBubblePlugin extends JavaPlugin {
 
     @Override
@@ -12,6 +10,6 @@ public class PaperBubblePlugin extends JavaPlugin {
         new Bubble();
 
         long end = System.currentTimeMillis() - start;
-        Bubble.getLogger().info("Hooked bubble with paper in " + end + "ms.");
+        Bubble.getLogger().info("Blinked with paper in " + end + "ms.");
     }
 }

@@ -13,11 +13,11 @@ import com.velocitypowered.api.plugin.Plugin;
 public class VelocityBubblePlugin {
 
     @Subscribe
-    public void onProxyInit(ProxyInitializeEvent event) {
+    public void onProxyInitialization(ProxyInitializeEvent event) {
         long start = System.currentTimeMillis();
         new Bubble();
 
         long end = System.currentTimeMillis() - start;
-        Bubble.getLogger().info("Hooked bubble with velocity in " + end + "ms.");
+        Bubble.getLogger().info("Blinked with velocity in " + end + "ms.");
     }
 }
