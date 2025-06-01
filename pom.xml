@@ -11,7 +11,7 @@
     <name>Bubble</name>
 
     <modules>
-        <module>bubble</module>
+        <module>api</module>
         <module>paper</module>
         <module>velocity</module>
     </modules>

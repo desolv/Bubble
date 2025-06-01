@@ -1,5 +1,7 @@
-package gg.desolve.bubble;
+package gg.desolve.paper;
 
+import gg.desolve.api.Bubble;
+import gg.desolve.api.blueprint.Logger;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class PaperBubblePlugin extends JavaPlugin {
@@ -10,6 +12,6 @@ public class PaperBubblePlugin extends JavaPlugin {
         new Bubble();
 
         long end = System.currentTimeMillis() - start;
-        Bubble.getLogger().info("Blinked with paper in " + end + "ms.");
+        Logger.info("Blinked with paper in " + end + "ms.");
     }
 }

@@ -1,7 +1,7 @@
-package gg.desolve.bubble.redis;
+package gg.desolve.api;
 
 import com.mongodb.Function;
-import gg.desolve.bubble.Bubble;
+import gg.desolve.api.blueprint.Logger;
 import lombok.Getter;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -29,9 +29,9 @@ public class RedisManager {
             jedisPool = new JedisPool(config, host);
             long end = System.currentTimeMillis() - start;
 
-            Bubble.getLogger().info("Deployed to redis in " + end + "ms.");
+            Logger.info("Deployed to redis in " + end + "ms.");
         } catch (Exception e) {
-            Bubble.getLogger().warning("There was a problem connecting to Redis.");
+            Logger.warning("There was a problem connecting to Redis.");
             e.printStackTrace();
         }
     }
@@ -40,7 +40,7 @@ public class RedisManager {
         try (Jedis jedis = jedisPool.getResource()) {
             return function.apply(jedis);
         } catch (Exception e) {
-            Bubble.getLogger().warning("An error occurred during Redis query.");
+            Logger.warning("An error occurred during Redis query.");
             e.printStackTrace();
             return null;
         }

@@ -1,8 +1,10 @@
-package gg.desolve.bubble;
+package gg.desolve.velocity;
 
 import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
 import com.velocitypowered.api.plugin.Plugin;
+import gg.desolve.api.Bubble;
+import gg.desolve.api.blueprint.Logger;
 
 @Plugin(
         id = "bubble",
@@ -18,6 +20,6 @@ public class VelocityBubblePlugin {
         new Bubble();
 
         long end = System.currentTimeMillis() - start;
-        Bubble.getLogger().info("Blinked with velocity in " + end + "ms.");
+        Logger.info("Blinked with velocity in " + end + "ms.");
     }
 }
