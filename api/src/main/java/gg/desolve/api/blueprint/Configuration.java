@@ -1,100 +1,65 @@
 package gg.desolve.api.blueprint;
 
-import org.spongepowered.configurate.CommentedConfigurationNode;
-import org.spongepowered.configurate.loader.ConfigurationLoader;
-import org.spongepowered.configurate.yaml.YamlConfigurationLoader;
+import org.yaml.snakeyaml.Yaml;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Configuration {
 
-    private final Map<String, ConfigurationLoader<CommentedConfigurationNode>> loaders = new HashMap<>();
-    private final Map<String, CommentedConfigurationNode> roots = new HashMap<>();
+    private final File plugin;
+    private final Map<String, Map<String, Object>> resources = new HashMap<>();
+    private final Yaml yaml = new Yaml();
 
-    public Configuration(String folder, String... files) {
-        Path folderPath = Paths.get(folder);
-        try {
-            if (Files.notExists(folderPath)) {
-                Files.createDirectories(folderPath);
-            }
-        } catch (IOException e) {
-            throw new IllegalStateException("Could not create configuration folder: " + folderPath, e);
-        }
+    public Configuration(String plugin, String... resources) {
+        this.plugin = new File("plugins/" + plugin);
 
-        for (String fileName : files) {
-            Path filePath = folderPath.resolve(fileName);
+        Arrays.stream(resources).forEach(this::load);
+    }
 
-            try {
-                if (Files.notExists(filePath)) {
-                    Files.createFile(filePath);
-                }
+    private void load(String resource) {
+        File instance = new File(plugin, resource);
+
+        if (!instance.exists()) {
+            instance.getParentFile().mkdirs();
+            try (InputStream ignored = getClass().getClassLoader().getResourceAsStream(resource)) {
+                if (ignored != null) Files.copy(ignored, instance.toPath());
             } catch (IOException e) {
-                throw new IllegalStateException("Could not create configuration file: " + filePath, e);
+                throw new IllegalStateException("Could not copy default configuration: " + resource, e);
             }
+        }
 
-            YamlConfigurationLoader loader = YamlConfigurationLoader.builder()
-                    .path(filePath)
-                    .indent(2)
-                    .build();
+        try (InputStream input = new FileInputStream(instance)) {
+            Map<String, Object> config = yaml.load(input);
+            resources.put(resource, config != null ? config : new HashMap<>());
+        } catch (IOException e) {
+            throw new IllegalStateException("Could not load configuration: " + resource, e);
+        }
+    }
 
-            CommentedConfigurationNode rootNode;
-            try {
-                rootNode = loader.load();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-                rootNode = loader.createNode();
+    public String get(String resource, String path) {
+        Map<String, Object> map = resources.get(resource);
+        if (map == null) {
+            throw new IllegalStateException("Configuration file not loaded: " + resource);
+        }
+
+        Object value = map;
+        for (String part : path.split("\\.")) {
+            if (!(value instanceof Map)) {
+                throw new IllegalStateException("Invalid path segment: " + part + " in " + path);
             }
-
-            this.loaders.put(fileName, loader);
-            this.roots.put(fileName, rootNode);
+            value = ((Map<?, ?>) value).get(part);
+            if (value == null) {
+                throw new IllegalStateException("Missing configuration value for key: " + path + " in " + resource);
+            }
         }
-    }
 
-    public CommentedConfigurationNode getRoot(String fileName) {
-        if (!roots.containsKey(fileName)) {
-            throw new IllegalArgumentException("Configuration file not registered: " + fileName);
-        }
-        return roots.get(fileName);
-    }
-
-    public void save(String fileName) {
-        ConfigurationLoader<CommentedConfigurationNode> loader = loaders.get(fileName);
-        CommentedConfigurationNode root = roots.get(fileName);
-        if (loader == null || root == null) throw new IllegalArgumentException("Cannot save unknown file: " + fileName);
-
-        try {
-            loader.save(root);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void saveAll() {
-        for (String fileName : loaders.keySet()) {
-            save(fileName);
-        }
-    }
-
-    public void reload(String fileName) {
-        ConfigurationLoader<CommentedConfigurationNode> loader = loaders.get(fileName);
-        if (loader == null) throw new IllegalArgumentException("Cannot reload unknown file: " + fileName);
-
-        try {
-            CommentedConfigurationNode newRoot = loader.load();
-            roots.put(fileName, newRoot);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void reloadAll() {
-        for (String fileName : loaders.keySet()) {
-            reload(fileName);
-        }
+        return value.toString();
     }
 }

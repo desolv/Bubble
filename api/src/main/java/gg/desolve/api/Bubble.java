@@ -10,7 +10,7 @@ public class Bubble {
     public Configuration configuration;
 
     public Bubble() {
-        configuration = new Configuration("plugins/Bubble", "repository.yml");
-        redisManager = new RedisManager(configuration.getRoot("repository.yml").node("redis.url").toString());
+        configuration = new Configuration("Bubble", "repository.yml");
+        redisManager = new RedisManager(configuration.get("repository.yml", "redis.url"));
     }
 }
