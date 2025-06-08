@@ -31,7 +31,7 @@ public class RedisManager {
 
             Logger.info("Deployed to redis in " + end + "ms.");
         } catch (Exception e) {
-            Logger.warning("There was a problem connecting to Redis.");
+            Logger.error("There was a problem connecting to Redis.");
             e.printStackTrace();
         }
     }

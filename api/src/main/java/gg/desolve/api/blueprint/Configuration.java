@@ -31,7 +31,7 @@ public class Configuration {
             try (InputStream ignored = getClass().getClassLoader().getResourceAsStream(resource)) {
                 if (ignored != null) Files.copy(ignored, instance.toPath());
             } catch (IOException e) {
-                throw new IllegalStateException("Could not copy default configuration: " + resource, e);
+                Logger.error("Could not copy default configuration: " + resource);
             }
         }
 
@@ -39,27 +39,27 @@ public class Configuration {
             Map<String, Object> config = yaml.load(input);
             resources.put(resource, config != null ? config : new HashMap<>());
         } catch (IOException e) {
-            throw new IllegalStateException("Could not load configuration: " + resource, e);
+            Logger.error("Could not load configuration: " + resource);
         }
     }
 
     public String get(String resource, String path) {
         Map<String, Object> map = resources.get(resource);
         if (map == null) {
-            throw new IllegalStateException("Configuration file not loaded: " + resource);
+            Logger.error("Configuration file not loaded: " + resource);
         }
 
         Object value = map;
         for (String part : path.split("\\.")) {
             if (!(value instanceof Map)) {
-                throw new IllegalStateException("Invalid path segment: " + part + " in " + path);
+                Logger.warning("Invalid path segment: " + part + " in " + path);
             }
             value = ((Map<?, ?>) value).get(part);
             if (value == null) {
-                throw new IllegalStateException("Missing configuration value for key: " + path + " in " + resource);
+                Logger.warning("Missing configuration value for key: " + path + " in " + resource);
             }
         }
 
-        return value.toString();
+        return value != null ? value.toString() : "Missing key for path";
     }
 }

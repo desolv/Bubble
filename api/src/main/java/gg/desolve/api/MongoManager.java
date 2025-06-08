@@ -29,7 +29,7 @@ public class MongoManager {
 
             Logger.info("Connected to MongoDB in " + (System.currentTimeMillis() - start) + "ms.");
         } catch (Exception e) {
-            Logger.warning("There was a problem connecting to MongoDB.");
+            Logger.error("There was a problem connecting to MongoDB.");
             e.printStackTrace();
         }
     }
