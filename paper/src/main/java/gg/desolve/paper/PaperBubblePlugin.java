@@ -1,17 +1,20 @@
 package gg.desolve.paper;
 
 import gg.desolve.api.Bubble;
-import gg.desolve.api.blueprint.Logger;
+import gg.desolve.paper.command.PingCommand;
+import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
 
+@Getter
 public class PaperBubblePlugin extends JavaPlugin {
+
+    private PaperBubbleCommandManager paperBubbleCommandManager;
 
     @Override
     public void onEnable() {
-        long start = System.currentTimeMillis();
         new Bubble();
 
-        long end = System.currentTimeMillis() - start;
-        Logger.info("Blinked with paper in " + end + "ms.");
+        paperBubbleCommandManager = new PaperBubbleCommandManager(this);
+        paperBubbleCommandManager.getInstance().registerCommand(new PingCommand());
     }
 }
