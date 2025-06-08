@@ -1,6 +1,5 @@
 package gg.desolve.paper;
 
-import gg.desolve.api.Bubble;
 import lombok.Getter;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -8,7 +7,5 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class PaperBubblePlugin extends JavaPlugin {
 
     @Override
-    public void onEnable() {
-        new Bubble();
-    }
+    public void onEnable() {}
 }
