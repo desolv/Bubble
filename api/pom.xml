@@ -51,9 +51,10 @@
             <version>4.11.1</version>
         </dependency>
         <dependency>
-            <groupId>org.spongepowered</groupId>
-            <artifactId>configurate-yaml</artifactId>
-            <version>4.2.0</version>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>2.4</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 </project>
